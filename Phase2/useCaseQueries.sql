@@ -44,7 +44,21 @@ FROM Appointment, Student S, Tutor T
 WHERE app_student_id = student_id AND app_tutor_id = tutor_id
     AND S.name LIKE 'Neymar Jr';
 
+--#8: Tutor can also see their own appointments 
+SELECT T.name, S.name, appointment_date, start_time, end_time, comment
+FROM Appointment, Student S, Tutor T
+WHERE app_student_id = student_id AND app_tutor_id = tutor_id
+    AND T.name LIKE 'Cristiano Ronaldo';
 
+--#9: Update tutor profile (email, phone, description) for Lionel Messi
+UPDATE Tutor
+SET
+    email = '10messi@gmail.com',
+    phone = '9251234567',
+    description = 'I teach Computer Science!'
+WHERE name LIKE 'Lionel Messi';
+
+--#10:??
 SELECT *
 FROM
     (SELECT student_id
@@ -57,8 +71,7 @@ WHERE a_tutor_id
         FROM Tutor
         WHERE email LIKE 'cr7@gmail.com')) B;
     
-
-
---#4: Request Appointment
+--#11: Request Appointment
 INSERT INTO Appointment (app_student_id,app_tutor_id,appointment_date,start_time,end_time,comment)
+
 
