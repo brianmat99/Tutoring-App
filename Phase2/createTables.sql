@@ -4,7 +4,8 @@ drop table Semester;
 drop table Availability;
 drop table Appointment;
 drop table Student;
-
+drop table Student_Appointments;
+drop table Tutor_CoursesSupported;
 
 create table Reviews (
     review_id decimal(4, 0) not null, -- Maybe should be integer?
@@ -30,7 +31,8 @@ create table Availability (
     availability_id decimal(4, 0) not null,
     day_of_week varchar(2) not null,    -- Su, M, Tu, W, Th, F, Sa How do we store multiple days?
     start_time text not null,   -- Reference: https://www.sqlitetutorial.net/sqlite-date/
-    end_time text not null 
+    end_time text not null,
+    semester_id decimal(4, 0) not null 
 );
 
 create table Appointment ( 
@@ -46,4 +48,15 @@ create table Student (
     student_id decimal(4, 0) not null,
     name varchar(100) not null,  -- In case someone has many middle names
     email varchar(100) not null 
+);
+
+-- Many to many tables
+create table Student_Appointments {
+    student_id decimal(4, 0) not null,
+    appointment_id decimal(4, 0) not null
+);
+
+create table Tutor_CoursesSupported {
+    course_id decimal(4, 0) not null,
+    --- TODO: Add attributes to Tutor table!
 );
