@@ -12,6 +12,7 @@ DROP TABLE Tutor;
 CREATE TABLE Reviews (
     review_id INTEGER PRIMARY KEY AUTOINCREMENT, -- Maybe should be integer?
     r_tutor_id INTEGER not null,
+    r_student_id INTEGER not null,
     --should reviews have a student id?
     rating decimal(3,2) not null, -- 3 digits total with 2 after decimal i.e. #.##
     comment varchar(500)
@@ -19,9 +20,9 @@ CREATE TABLE Reviews (
 
 create table CoursesSupported (
     course_id INTEGER PRIMARY KEY AUTOINCREMENT,    -- In case we get a lot of courses
-    cs_tutor_id INTEGER not null,
-    acronym varchar(10) not null,   -- Just in case long acronym
-    course_name varchar(100) not null    -- just in case long course name
+    cs_tutor_id INTEGER not null,   -- Just in case long acronym
+    course_name varchar(100) not null,
+    acronym varchar(10) not null     -- just in case long course name
 );
 
 create table Semester ( 
@@ -37,8 +38,8 @@ create table Availability (
     a_semester_id INTEGER not null,
     a_tutor_id INTEGER not null,
     day_of_week varchar(2) not null,    -- Su, M, Tu, W, Th, F, Sa How do we store multiple days?
-    start_time text not null,   -- Reference: https://www.sqlitetutorial.net/sqlite-date/
-    end_time text not null 
+    start_time time not null,   -- Reference: https://www.sqlitetutorial.net/sqlite-date/
+    end_time time not null 
 );
 
 create table Appointment ( 
@@ -47,8 +48,8 @@ create table Appointment (
     app_tutor_id INTEGER not null,
     appointment_date date not null,
     -- description varchar(200),
-    start_time text not null,
-    end_time text not null,
+    start_time time not null,
+    end_time time not null,
     comment varchar(200)    -- Might not need to this because of description or vice versa
 );
     
@@ -58,10 +59,10 @@ create table Student (
     email varchar(100) not null 
 );
 
-create table tutor (
+create table Tutor (
     tutor_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name varchar(100) not null,
     email varchar(100) not null,
-    phone varchar(20)
+    phone varchar(20),
     description varchar(500)
 );
