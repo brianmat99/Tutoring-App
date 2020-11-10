@@ -1,6 +1,14 @@
+drop table Reviews;
+drop table CoursesSupported;
+drop table Semester;
+drop table Availability;
+drop table Appointment;
+drop table Student;
+
+
 create table Reviews (
     review_id decimal(4, 0) not null, -- Maybe should be integer?
-    rating decimal(3, 2) not null,   -- 3 digits total with 2 after decimal; i.e. #.##
+    rating decimal(3, 2) not null,   -- 3 digits total with 2 after decimal i.e. #.##
     comment varchar(20)
 );
 
@@ -20,7 +28,7 @@ create table Semester (
 
 create table Availability (
     availability_id decimal(4, 0) not null,
-    day_of_week varchar(2) not null,    -- Su, M, Tu, W, Th, F, Sa; How do we store multiple days?
+    day_of_week varchar(2) not null,    -- Su, M, Tu, W, Th, F, Sa How do we store multiple days?
     start_time text not null,   -- Reference: https://www.sqlitetutorial.net/sqlite-date/
     end_time text not null 
 );
