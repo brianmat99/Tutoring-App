@@ -4,6 +4,7 @@ DROP TABLE Semester;
 DROP TABLE Availability;
 DROP TABLE Appointment;
 DROP TABLE Student;
+DROP TABLE Tutor;
 
 
 /*Do not use ; in comments. It fails to distinguish the difference*/
@@ -44,7 +45,7 @@ create table Appointment (
     appointment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     app_student_id INTEGER not null,
     app_tutor_id INTEGER not null,
-    Appointment_date date not null,
+    appointment_date date not null,
     -- description varchar(200),
     start_time text not null,
     end_time text not null,
@@ -55,4 +56,12 @@ create table Student (
     student_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name varchar(100) not null,  -- In case someone has many middle names
     email varchar(100) not null 
+);
+
+create table tutor (
+    tutor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name varchar(100) not null,
+    email varchar(100) not null,
+    phone varchar(20)
+    description varchar(500)
 );
