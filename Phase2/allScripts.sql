@@ -1,0 +1,4 @@
+/*
+This file should contain a copy of all the scripts in this folder 
+for easy submission
+*/
