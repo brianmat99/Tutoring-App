@@ -11,6 +11,7 @@ DROP TABLE Student;
 CREATE TABLE Reviews (
     review_id INTEGER PRIMARY KEY AUTOINCREMENT, -- Maybe should be integer?
     r_tutor_id INTEGER not null,
+    --should reviews have a student id?
     rating decimal(3,2) not null, -- 3 digits total with 2 after decimal i.e. #.##
     comment varchar(500)
 );
