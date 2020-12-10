@@ -59,5 +59,33 @@ public class Back {
         }
         return -1;  // Return -1 for error, should not get here...
     }
+
+    public String[] getTutorNames() {
+        String[] failure = new String[1234];
+        try {
+            int numOfTutors = getTutorsCount();
+            String[] tutors = new String[numOfTutors];
+
+            Statement stmt = c.createStatement();
+            String sql = "select name as n " +
+                "from Tutor ";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int i = 0;
+            while(rs.next()) {
+                String name = rs.getString(1);
+                tutors[i] = name;
+                i++;
+            }
+
+            return tutors;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return failure; // Should not reach here...
+    }
     
 }
