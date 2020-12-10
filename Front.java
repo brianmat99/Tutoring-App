@@ -17,7 +17,7 @@ public class Front {
                 }
     
                 if (funcSelected == 1) {
-                    findTutor();
+                    createAppointment();
                 }
     
                 if (funcSelected == 2) {
@@ -30,6 +30,7 @@ public class Front {
     
                 if (funcSelected == 4) {
                     logout();
+                    break;
                 }
     
             } while (true);
@@ -75,7 +76,7 @@ public class Front {
         return func;
     }
 
-    public static void findTutor() {
+    public static void createAppointment() {
         //Connect to database and find all tutors
         //Store all tutors into String array
         String [] tutorNames = new String[100]; //set to 100 max tutors but can be adjusted with select count * from tutors
@@ -86,6 +87,7 @@ public class Front {
 
         Scanner input = new Scanner(System.in);
         int tutorChosen = input.nextInt() - 1;
+        input.close();
         //tutorNames[tutorChosen] is the name of the tutor; we can use this to select review / availability
         //change tutorID to tutor chosen
 
@@ -99,7 +101,6 @@ public class Front {
         String time = input.nextLine();
 
         //Insert into appointments 
-
         
     }
 
@@ -108,11 +109,52 @@ public class Front {
     }
 
     private static void manageAppointment() {
-        //edit appointment
+        System.out.println("Select manage option:");
+        System.out.println("1. Edit Appointment");
+        System.out.println("2. Post Review");
+        System.out.println("3. Cancel Appointment");
+        System.out.println("4. Go back\n");
+        Scanner input = new Scanner(System.in);
+        int func = input.nextInt();
 
-        //post review
+        do {
+            //edit appointment (update in appointment)
+            if (func == 1) {
+                do {
+                    System.out.println("Select edit option:");
+                    System.out.println("1. Edit Appointment Date");
+                    System.out.println("2. Edit Start Time");
+                    System.out.println("3. Edit Description\n");
+                    int editChoice = input.nextInt();
+                    if (editChoice == 1) {
+                        // update appointment_date in appointment
+                        System.out.print("Enter new appointment date");
+                        String newDate = input.nextLine();
+                    }
+                    if (editChoice == 2) {
+                        // update start_time in appointment
+                        System.out.print("Enter new start time: ");
+                        String newTime = input.nextLine();
+                    }
+                    if (editChoice == 3) {
+                        // update comment in appointment
+                        System.out.print("Enter new description: ");
+                        String description = input.nextLine();
+                    }
+                } while (true);
+            }
 
-        //cancel appointment
+            //post review (insert into reviews)
+            if (func == 2) {
+
+            }
+
+            //cancel appointment (delete from appointments)
+            if (func == 3) {
+                
+            }
+            
+        } while (true);
     }
 
     private static void logout() {
