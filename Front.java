@@ -81,18 +81,32 @@ public class Front {
     }
 
     public static void createAppointment(Back b) {
-        int numOfTutors = b.getTutorsCount();
-        System.out.println("Num of tutors: " + numOfTutors);
+        Scanner input = new Scanner(System.in);
+        int tutorChosen;
+        int courseChosen;
 
-        //Store all tutors into String array
-        String[] tutorNames = new String[numOfTutors]; //set to 100 max tutors but can be adjusted with select count * from tutors
+        int numOfTutors = b.getTutorsCount();
+        //System.out.println("Num of tutors: " + numOfTutors) 
+        String[] tutorNames = new String[numOfTutors]; 
+        tutorNames = b.getTutorNames();
+
+        int numOfCourses = b.getCoursesCount();
+        String[] courseNames = new String[numOfCourses];
+        courseNames = b.getCourseNames();
+
+        System.out.println("What course do you need help with? ");
+        for(int i = 0; i < numOfCourses; i++) {
+            System.out.println((i + 1) + ". " + courseNames[i]);
+        }
+        courseChosen = input.nextInt() - 1;
+        System.out.println("courseChosen: " + courseChosen);
+        
         System.out.println("Please select a tutor:");
         for (int i = 1; i <= tutorNames.length; i++){
             System.out.println(i + ". " + tutorNames[i-1]);
         }
-
-        Scanner input = new Scanner(System.in);
-        int tutorChosen = input.nextInt() - 1;
+        
+        tutorChosen = input.nextInt() - 1;
         //tutorNames[tutorChosen] is the name of the tutor; we can use this to select review / availability
         //change tutorID to tutor chosen
 
