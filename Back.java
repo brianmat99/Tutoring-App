@@ -14,7 +14,7 @@ public class Back {
                 connStr = connStr + dbName;
 
                 Class.forName("org.sqlite.JDBC");
-                c = DriveManager.getConnection(connStr);
+                c = DriverManager.getConnection(connStr);
 
                 c.setAutoCommit(false);
 
