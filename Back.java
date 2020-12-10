@@ -5,7 +5,7 @@ public class Back {
     private String dbName;
     private boolean isConnected = false;
 
-    private void openConnection(String dbName) {
+    public void openConnection(String dbName) {
         this.dbName = dbName;
 
         if(!isConnected) {
@@ -27,7 +27,7 @@ public class Back {
         }
     }
 
-    private void closeConnection() {
+    public void closeConnection() {
         if(isConnected) {
             try {
                 c.close();
