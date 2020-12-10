@@ -71,7 +71,7 @@ public class Front {
 
     public static int showOptionsTutor() {
         Scanner input = new Scanner(System.in);
-        System.out.println("PLease select a function:");
+        System.out.println("Please select a function:");
         System.out.println("1. Manage Appointment");
         System.out.println("2. Edit Profile");
         System.out.println("3. Accept/Decline");
@@ -83,9 +83,9 @@ public class Front {
     public static void createAppointment(Back b) {
         int numOfTutors = b.getTutorsCount();
         System.out.println("Num of tutors: " + numOfTutors);
-        
+
         //Store all tutors into String array
-        String [] tutorNames = new String[100]; //set to 100 max tutors but can be adjusted with select count * from tutors
+        String[] tutorNames = new String[numOfTutors]; //set to 100 max tutors but can be adjusted with select count * from tutors
         System.out.println("Please select a tutor:");
         for (int i = 1; i <= tutorNames.length; i++){
             System.out.println(i + ". " + tutorNames[i-1]);
