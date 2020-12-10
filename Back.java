@@ -42,6 +42,58 @@ public class Back {
 
     // TODO: Create functions for each use case. Will probably be using PreparedStatements a lot
 
+    public int getNumOfTutorsByCourse(String co) {
+        try {
+            String sql = "select count(*) " +
+                "from Tutor, CoursesSupported " +
+                "where tutor_id = cs_tutor_id " +
+                    "and course_name = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, co);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int num = rs.getInt(1);
+            
+            return num;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return -1;  // Error
+    }
+
+    public String[] getTutorsByCourse(String co) {
+        String[] failure = new String[1234];
+        try {
+            int numOfTutors = getNumOfTutorsByCourse(co);
+            String[] tutors = new String[numOfTutors];
+
+            String sql = "select Tutor.name " +
+                "from Tutor, CoursesSupported " +
+                "where tutor_id = cs_tutor_id " +
+                    "and course_name = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, co);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int i = 0;
+            while(rs.next()) {
+                tutors[i] = rs.getString(1);
+                i++;
+            }
+
+            return tutors;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return failure;  // Error
+    }
+
     public int getTutorsCount() {
         try {
             Statement stmt = c.createStatement();
@@ -87,6 +139,7 @@ public class Back {
 
         return failure; // Should not reach here...
     }
+    
     public int getCoursesCount() {
         try {
             
