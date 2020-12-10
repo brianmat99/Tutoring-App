@@ -58,7 +58,7 @@ public class Front {
     public static int showOptionsStudent() {
         Scanner input = new Scanner(System.in);
         int func;
-        System.out.println("This program supports 4 functions:");
+        System.out.println("\nThis program supports 4 functions:");
         System.out.println("1. Request Appointment");
         System.out.println("2. View Appointments");
         System.out.println("3. Manage Appointment");
@@ -71,7 +71,7 @@ public class Front {
 
     public static int showOptionsTutor() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Please select a function:");
+        System.out.println("\nPlease select a function:");
         System.out.println("1. Manage Appointment");
         System.out.println("2. Edit Profile");
         System.out.println("3. Accept/Decline");
@@ -84,31 +84,37 @@ public class Front {
         Scanner input = new Scanner(System.in);
         int tutorChosen;
         int courseChosen;
+        String daysAvailable;
 
         int numOfCourses = b.getCoursesCount();
         String[] courseNames = new String[numOfCourses];
         courseNames = b.getCourseNames();
 
-        System.out.println("What course do you need help with? ");
+        System.out.println("\nWhat course do you need help with? ");
         for(int i = 0; i < numOfCourses; i++) {
             System.out.println((i + 1) + ". " + courseNames[i]);
         }
         courseChosen = input.nextInt() - 1;
 
-        int numOfTutors = b.getNumOfTutorsByCourse(courseNames[courseChosen]);
+        System.out.println("\nWhat days are you available: Su, M, Tu, W, Th, F, Sa (in comma separated list i.e. M,Tu,F,Sa)");
+        daysAvailable = input.next();
+
+        String[] daysAvailArr = daysAvailable.split(",");
+
+        int numOfTutors = b.getNumOfTutorsByCourse(courseNames[courseChosen], daysAvailArr);
         String[] tutorNames = new String[numOfTutors];
-        tutorNames = b.getTutorsByCourse(courseNames[courseChosen]);
+        tutorNames = b.getTutorsByCourse(courseNames[courseChosen], daysAvailArr);
         
         while(true) {   // To allow user to look through all tutor reviews, availability, etc 
             int confirm = 2;
-            System.out.println("Please select a tutor: ");
+            System.out.println("\nPlease select a tutor: ");
             for (int i = 0; i < numOfTutors; i++) {
                 System.out.println((i + 1) + ". " + tutorNames[i]);
             }
         
             tutorChosen = input.nextInt() - 1;
 
-            System.out.println("Tutor: " + tutorNames[tutorChosen]);
+            System.out.println("\nTutor: " + tutorNames[tutorChosen]);
             System.out.println("Reviews: ...");
             System.out.println("Availability: ...");
             
