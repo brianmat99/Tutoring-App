@@ -85,11 +85,6 @@ public class Front {
         int tutorChosen;
         int courseChosen;
 
-        int numOfTutors = b.getTutorsCount();
-        //System.out.println("Num of tutors: " + numOfTutors) 
-        String[] tutorNames = new String[numOfTutors]; 
-        tutorNames = b.getTutorNames();
-
         int numOfCourses = b.getCoursesCount();
         String[] courseNames = new String[numOfCourses];
         courseNames = b.getCourseNames();
@@ -99,21 +94,35 @@ public class Front {
             System.out.println((i + 1) + ". " + courseNames[i]);
         }
         courseChosen = input.nextInt() - 1;
-        System.out.println("courseChosen: " + courseChosen);
+
+        int numOfTutors = b.getNumOfTutorsByCourse(courseNames[courseChosen]);
+        String[] tutorNames = new String[numOfTutors];
+        tutorNames = b.getTutorsByCourse(courseNames[courseChosen]);
         
-        System.out.println("Please select a tutor:");
-        for (int i = 1; i <= tutorNames.length; i++){
-            System.out.println(i + ". " + tutorNames[i-1]);
+        while(true) {   // To allow user to look through all tutor reviews, availability, etc 
+            int confirm = 2;
+            System.out.println("Please select a tutor: ");
+            for (int i = 0; i < numOfTutors; i++) {
+                System.out.println((i + 1) + ". " + tutorNames[i]);
+            }
+        
+            tutorChosen = input.nextInt() - 1;
+
+            System.out.println("Tutor: " + tutorNames[tutorChosen]);
+            System.out.println("Reviews: ...");
+            System.out.println("Availability: ...");
+            
+            System.out.println("\nConfirm choice (1/0): ");
+            confirm = input.nextInt();
+
+            if(confirm == 1) {
+                break;
+            }
+            else {
+                // continue
+            }
         }
         
-        tutorChosen = input.nextInt() - 1;
-        //tutorNames[tutorChosen] is the name of the tutor; we can use this to select review / availability
-        //change tutorID to tutor chosen
-
-        System.out.println("Tutor: " + tutorNames[tutorChosen]);
-        System.out.println("Reviews: ...");
-        System.out.println("Availability: ...\n\n");
-
         System.out.println("Please enter the date requested for this session: (e.x: 01/27/2020)");
         String date = input.next();
         System.out.println("Please enter the time: (e.x: 4:30pm)");
