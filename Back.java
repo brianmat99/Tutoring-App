@@ -87,5 +87,51 @@ public class Back {
 
         return failure; // Should not reach here...
     }
+    public int getCoursesCount() {
+        try {
+            
+            Statement stmt = c.createStatement();
+            String sql = "select count(course_name) as c " +
+                "from CoursesSupported ";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int count = rs.getInt("c");
+
+            return count;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return -1;  // Error if we get here
+    }
+
+    public String[] getCourseNames() {
+        String[] failure = new String[1234];
+        try {
+            int courseCount = getCoursesCount();
+            String[] courses = new String[courseCount];
+
+            Statement stmt = c.createStatement();
+            String sql = "select course_name " + 
+                "from CoursesSupported ";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int i = 0;
+            while(rs.next()) {
+                courses[i] = rs.getString(1);
+                i++;
+            }
+
+            return courses;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return failure; // If return this then function failed
+    }
     
 }
