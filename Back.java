@@ -41,7 +41,8 @@ public class Back {
     }
 
     // TODO: Create functions for each use case. Will probably be using PreparedStatements a lot
-
+    
+    // returns num of tutors who support input course and days
     public int getNumOfTutorsByCourse(String co, String[] d) {
         try {
             if(d.length == 1) {
@@ -184,7 +185,8 @@ public class Back {
 
         return -1;  // Error
     }
-
+    
+    // returns tutors who support input course and days
     public String[] getTutorsByCourse(String co, String[] d) {
         String[] failure = new String[123];
         try {
@@ -360,6 +362,7 @@ public class Back {
         return failure;  // Error
     }
 
+    // returns num of all tutors
     public int getTutorsCount() {
         try {
             Statement stmt = c.createStatement();
@@ -378,6 +381,7 @@ public class Back {
         return -1;  // Return -1 for error, should not get here...
     }
 
+    // returns all tutor names 
     public String[] getTutorNames() {
         String[] failure = new String[1234];
         try {
@@ -406,6 +410,7 @@ public class Back {
         return failure; // Should not reach here...
     }
 
+    // returns num of all courses 
     public int getCoursesCount() {
         try {
             
@@ -426,6 +431,7 @@ public class Back {
         return -1;  // Error if we get here
     }
 
+    // returns all course names 
     public String[] getCourseNames() {
         String[] failure = new String[1234];
         try {
