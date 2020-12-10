@@ -41,5 +41,23 @@ public class Back {
     }
 
     // TODO: Create functions for each use case. Will probably be using PreparedStatements a lot
+
+    public int getTutorsCount() {
+        try {
+            Statement stmt = c.createStatement();
+            String sql = "select count(tutor_id) as c " +
+                "from Tutor ";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int count = rs.getInt("c");
+
+            return count;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        return -1;  // Return -1 for error, should not get here...
+    }
     
 }
