@@ -4,6 +4,9 @@ public class Front {
     public static int student;
     public static int tutorID;
     public static void main(String[] args) {
+        Back b = new Back();
+        b.openConnection("Phase2/database.sqlite");
+
         int res = login();
         int funcSelected;
 
@@ -18,7 +21,7 @@ public class Front {
                 }
     
                 if (funcSelected == 1) {
-                    createAppointment();
+                    createAppointment(b);
                 }
     
                 if (funcSelected == 2) {
@@ -77,8 +80,10 @@ public class Front {
         return func;
     }
 
-    public static void createAppointment() {
-        //Connect to database and find all tutors
+    public static void createAppointment(Back b) {
+        int numOfTutors = b.getTutorsCount();
+        System.out.println("Num of tutors: " + numOfTutors);
+        
         //Store all tutors into String array
         String [] tutorNames = new String[100]; //set to 100 max tutors but can be adjusted with select count * from tutors
         System.out.println("Please select a tutor:");
