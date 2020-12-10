@@ -114,8 +114,16 @@ public class Front {
         
             tutorChosen = input.nextInt() - 1;
 
+            int numOfReviews = b.getNumOfTutorReviews(tutorNames[tutorChosen]);
+            String[] reviews = new String[numOfReviews];
+            reviews = b.getTutorReviews(tutorNames[tutorChosen]);
+            System.out.println("NUM: " + numOfReviews + ", " + tutorChosen);
+
             System.out.println("\nTutor: " + tutorNames[tutorChosen]);
-            System.out.println("Reviews: ...");
+            System.out.println("Reviews: ");
+            for(int i = 0; i < numOfReviews; i++) {
+                System.out.println((i + 1) + ". " + reviews[i]);
+            }
             System.out.println("Availability: ...");
             
             System.out.println("\nConfirm choice (1/0): ");

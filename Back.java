@@ -459,14 +459,14 @@ public class Back {
         return failure; // If return this then function failed
     }
 
-    /*
-    public int getNumOfTutorReviews(int t) {
+    public int getNumOfTutorReviews(String t) {
         try {
             String sql = "select count(*) " +
-                "from Reviews " +
-                "where r_tutor_id = ? ";
+                "from Reviews, Tutor " +
+                "where r_tutor_id = tutor_id " +
+                    "and name = ? ";
             PreparedStatement stmt = c.prepareStatement(sql);
-            stmt.setInt(1, t);
+            stmt.setString(1, t);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -481,26 +481,27 @@ public class Back {
         return -1;  // Error
     }
 
-    public String[] getTutorReviews(int t) {
+    public String[] getTutorReviews(String t) {
         String[] failure = new String[1234];
         try {
             int numOfReviews = getNumOfTutorReviews(t);
             String[] reviews = new String[numOfReviews];
             String sql = "select comment " +
-                "from Reviews " +
-                "where r_tutor_id = ? ";
+                "from Reviews, Tutor " +
+                "where r_tutor_id = tutor_id " +
+                    "and name = ? ";
             PreparedStatement stmt = c.prepareStatement(sql);
-            stmt.setInt(1, t);
+            stmt.setString(1, t);
 
             ResultSet rs = stmt.executeQuery();
 
             int i = 0;
             while(rs.next()) {
-                
+                reviews[i] = rs.getString(1);
                 i++;
             }
 
-            return ;
+            return reviews;
 
         } catch(Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -508,5 +509,5 @@ public class Back {
 
         return failure;  // Error
     }
-    */
+    
 }
