@@ -325,7 +325,9 @@ public class Front {
         }
 
         System.out.println("Describe help required: ");
+        input.nextLine();
         String userComment = input.nextLine();
+        System.out.println(userComment);
 
         int sID = b.getStudentIDFromEmail(studentEmail);
         int tID = b.getTutorIDFromName(tutorNames[tutorChosen][0]);
