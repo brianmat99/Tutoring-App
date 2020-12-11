@@ -66,3 +66,8 @@ create table Tutor (
     phone varchar(20),
     description varchar(500)
 );
+
+
+SELECT email
+FROM Student
+WHERE email = 'neymar2santos@gmail.com';

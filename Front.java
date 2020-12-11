@@ -1,25 +1,29 @@
 import java.util.Scanner;
 
+import javax.lang.model.util.ElementScanner6;
+
 public class Front {
-    public static String student;
+    public static String studentEmail;
+    public static String tutorEmail;
     public static void main(String[] args) {
         Back b = new Back();
         b.openConnection("Phase2/newdb.sqlite");
 
-        int res = login();
         int funcSelected;
+        int res;
 
         System.out.println("Welcome to PeerTutors 2.0!");
-        System.out.print("Please enter your name: ");
-        Scanner input = new Scanner(System.in);
-        student = input.nextLine();
+        res = login(b);
+        // Scanner input = new Scanner(System.in);
+        // student = input.nextLine();
 
-        //TODO: verify if the name exists in the database
 
-        System.out.println("Welcome " + student + "...💩");
+        // need to look up name by email to display welcome message
+        // System.out.println("Welcome " + tutorEmail + "...💩");
         
         // if student
         if (res == 0){
+            System.out.println("Student menu...");
             do {
                 funcSelected = showOptionsStudent();
     
@@ -50,15 +54,59 @@ public class Front {
         
         // if tutor
         if (res == 1){
+            System.out.println("Tutor menu...");
             do {
                 showOptionsTutor();
             } while (true);
         }
+
+        System.out.println("invalid login... goodbye!");
         b.closeConnection();
     }
 
-    public static int login() {
-        int response = 0; // 0 for student, 1 for tutor?
+    public static int login(Back b) {
+        int response = 1000; // 0 for student, 1 for tutor?
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Do you have an account?\n1. Yes\n2. No");
+        int account = input.nextInt();
+
+        // Has an account
+        if (account == 1){
+            System.out.println("Sign in process...");
+            System.out.println("Please enter your email: ");
+            String email = input.next();
+
+            studentEmail = b.getStudentByEmail(email);
+            tutorEmail = b.getTutorByEmail(email);
+            
+            if (studentEmail == null) {
+                response = 1;
+            }
+            if (tutorEmail == null){
+                response = 0;
+            }
+
+        }
+
+        // Does NOT have an account
+        else if (account == 2){
+            // Sign up
+            System.out.println("\n\nSign up process...");
+            System.out.println("Are you a student or a tutor?\n1. Student\n2.Tutor");
+            int accountType = input.nextInt();
+            // Student account
+            if (accountType == 1) {
+                // Insert into Student
+            }
+            // Tutor account
+            if (accountType == 2) {
+                // Insert into Tutor
+            }
+        }
+        else {
+            System.out.println("Invalid input.");
+        }
 
         return response;
     }
@@ -203,9 +251,9 @@ public class Front {
                         System.out.print("Enter new appointment time: (i.e: 7:30 pm)\n");
                         String newTime = stringInput.nextLine();
 
-                        
+
                         //TODO: if time, add session duration option
-                        System.out.println("Enter the duration of the session in minutes: \n");
+                        //System.out.println("Enter the duration of the session in minutes: \n");
 
 
 
@@ -288,9 +336,9 @@ public class Front {
 
     public static int selectAppointment(Back b){
         //store all appointments into 2d array
-        int numOfAppointments = b.getNumOfAppointments(student);
+        int numOfAppointments = b.getNumOfAppointments(studentEmail);
         String[][] appointments = new String[numOfAppointments][6]; //100 rows, 5 columns (appoitnmentID, tutorID, appointment_date, start_time, end_time, comment)
-        appointments = b.getAppointments(student);
+        appointments = b.getAppointments(studentEmail);
         System.out.println("\nAll available appointments: ");
         //search all appointments for student
         for (int i = 0; i < numOfAppointments; i++) {

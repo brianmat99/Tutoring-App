@@ -529,7 +529,7 @@ public class Back {
             String sql = "SELECT A.appointment_id, A.appointment_date, T.name as tutor_name, A.start_time, A.end_time, A.description " +
                         "FROM Appointment A, Student S, Tutor T " +
                         "WHERE app_student_id = student_id AND app_tutor_id = tutor_id " +
-                            "AND S.name LIKE ? ";
+                            "AND S.email LIKE ? ";
             PreparedStatement stmt = c.prepareStatement(sql);
 
             stmt.setString(1, student);
@@ -557,7 +557,7 @@ public class Back {
             String sql = "select count(*) " +
                     "FROM Student, Appointment " +
                     "WHERE student_id = app_student_id " +
-                        "and Student.name LIKE ? ";
+                        "and Student.email LIKE ? ";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setString(1, student);
 
@@ -661,5 +661,57 @@ public class Back {
         } catch(Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
+    }
+
+    // assume that the user always enters an existing user
+    public String getStudentByEmail(String email){
+        String failure = null;
+        try {
+            String fetchedEmail = null;
+            String sql = "SELECT email " + 
+                        " FROM Student " +
+                        " WHERE email = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, email);
+
+            ResultSet rs = stmt.executeQuery();
+            c.commit();
+
+            if (rs.next()){
+                fetchedEmail = rs.getString(1); 
+            }
+
+            stmt.close();
+
+            return fetchedEmail;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        return failure;
+    }
+
+    public String getTutorByEmail(String email){
+        String failure = null;
+        try {
+            String fetchedEmail = null;
+            String sql = "SELECT email " + 
+                        " FROM Tutor " +
+                        " WHERE email = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, email);
+
+            ResultSet rs = stmt.executeQuery();
+            c.commit();
+
+            fetchedEmail = rs.getString(1); 
+            stmt.close();
+
+            return fetchedEmail;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        return failure;
     }
 }
