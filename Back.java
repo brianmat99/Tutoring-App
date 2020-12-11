@@ -526,8 +526,8 @@ public class Back {
             
 
             
-            String sql = "SELECT appointment_id, appointment_date, T.name as tutor_name, start_time, end_time, comment " +
-                        "FROM Appointment, Student S, Tutor T " +
+            String sql = "SELECT A.appointment_id, A.appointment_date, T.name as tutor_name, A.start_time, A.end_time, A.description " +
+                        "FROM Appointment A, Student S, Tutor T " +
                         "WHERE app_student_id = student_id AND app_tutor_id = tutor_id " +
                             "AND S.name LIKE ? ";
             PreparedStatement stmt = c.prepareStatement(sql);
@@ -580,7 +580,7 @@ public class Back {
         try {
             
             String[] appointmentInfo = new String[3];
-            String sql = "SELECT appointment_date, start_time, comment " +
+            String sql = "SELECT appointment_date, start_time, description " +
                     "FROM Appointment " +
                     "WHERE appointment_id = ? ";
 
@@ -606,14 +606,51 @@ public class Back {
         return failure;
     }
 
-    public void updateAppointmentDate(String oldDate, String newDate, int appointment_id){
+    public void updateAppointmentDate(String newDate, int appointment_id){
         try {
             String sql = "UPDATE Appointment  " + 
                         " SET appointment_date = ? " +
                         " WHERE appointment_id = ? ";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setString(1, newDate);
-            // stmt.setString(2, newDate);
+            stmt.setInt(2, appointment_id);
+
+            stmt.executeUpdate();
+            c.commit();
+
+            stmt.close();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
+    public void updateAppointmentStartTime(String newTime, int appointment_id){
+        try {
+            String sql = "UPDATE Appointment  " + 
+                        " SET start_time = ? " +
+                        " WHERE appointment_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, newTime);
+            stmt.setInt(2, appointment_id);
+
+            stmt.executeUpdate();
+            c.commit();
+
+            stmt.close();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
+    public void updateAppointmentDescription(String newDescription, int appointment_id) {
+        try {
+            String sql = "UPDATE Appointment  " + 
+                        " SET description = ? " +
+                        " WHERE appointment_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, newDescription);
             stmt.setInt(2, appointment_id);
 
             stmt.executeUpdate();

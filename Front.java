@@ -176,11 +176,11 @@ public class Front {
 
             if (func == 1) {
                 do {
-                    // 1.appointment_date ; 2.start_time ; 3.comment   <- values of appointment selected
+                    // 1.appointment_date ; 2.start_time ; 3.description   <- values of appointment selected
                     String[] appointmentInfo = b.getAppointmentInfo(appointmentID);
                     System.out.println("Select edit option:");
                     System.out.println("1. Edit Appointment Date");
-                    System.out.println("2. Edit Start Time");
+                    System.out.println("2. Edit Appointment Time");
                     System.out.println("3. Edit Description");
                     System.out.println("4. Go back");
                     int editChoice = input.nextInt();
@@ -190,20 +190,72 @@ public class Front {
                         String newDate = stringInput.next();
                         // update appointment_date in appointment
                         // TODO: check if new date entered is withing the semester selected
-                        b.updateAppointmentDate(appointmentInfo[0], newDate, appointmentID);
+                        b.updateAppointmentDate(newDate, appointmentID);
                         System.out.println("Appointment date updated!\n");
                         
                     }
                     if (editChoice == 2) {
-                        System.out.print("Enter new start time: ");
-                        String newTime = stringInput.next();
-                        // update start_time in appointment
-                        System.out.println("Start time updated!\n");
+                        String[] fullTime = new String[2];
+                        String[] hour = new String[2];
+                        String completeTime;
+                        int startTime;
+                        System.out.println("Old appointment time: " + appointmentInfo[1]);
+                        System.out.print("Enter new appointment time: (i.e: 7:30 pm)\n");
+                        String newTime = stringInput.nextLine();
+
+                        
+                        //TODO: if time, add session duration option
+                        System.out.println("Enter the duration of the session in minutes: \n");
+
+
+
+                        fullTime = newTime.split(":");
+                        hour = fullTime[1].split(" ");
+
+                        startTime = Integer.parseInt(fullTime[0]);
+
+                        if (Integer.parseInt(fullTime[0]) == 12){
+
+                            if (hour[1].charAt(0) == 'p') {
+                                startTime += 0;
+                                completeTime = startTime + ":" + hour[0] + ":00";
+                                b.updateAppointmentStartTime(completeTime, appointmentID);
+                                System.out.println("Apppointment time updated!\n");
+                            }
+
+                            if (hour[1].charAt(0) == 'a') {
+                                startTime -= 12;
+                                completeTime = "0"+ startTime + ":" + hour[0] + ":00";
+                                b.updateAppointmentStartTime(completeTime, appointmentID);
+                                System.out.println("Appointment time updated!\n");    
+                            }
+                        }
+
+                        else if (fullTime[1].charAt(3) == 'p'){
+                            startTime += 12;
+                            completeTime = startTime + ":" + hour[0] + ":00";
+                            b.updateAppointmentStartTime(completeTime, appointmentID);
+                            System.out.println("Appointment time updated!\n");
+                        }
+
+                        else if (fullTime[1].charAt(3) == 'a'){
+                            startTime += 0;
+                            completeTime = "0"+ startTime + ":" + hour[0] + ":00";
+                            b.updateAppointmentStartTime(completeTime, appointmentID);
+                            System.out.println("Appointment time updated!\n");
+                        }
+
+                        else {
+                            System.out.println("Incorrect value");
+                        }
                     }
                     if (editChoice == 3) {
+                        System.out.println("Old description: " + appointmentInfo[2]);
                         System.out.print("Enter new description: ");
-                        String description = stringInput.next();
-                        // update comment in appointment
+                        String description = stringInput.nextLine();
+
+                        b.updateAppointmentDescription(description, appointmentID);
+                        // update description in appointment
                         System.out.println("Description updated!\n");
                     }
                     if (editChoice == 4) {
