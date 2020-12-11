@@ -49,7 +49,6 @@ public class Front {
     
                 if (funcSelected == 4) {
                     logout(b);
-                    break;
                 }
     
             } while (true);
@@ -60,7 +59,22 @@ public class Front {
         if (res == 1){
             System.out.println("\n          Tutor Menu");
             do {
-                showOptionsTutor();
+                funcSelected = showOptionsTutor();
+                if (funcSelected < 1 || funcSelected > 3) {
+                    System.out.println("Error: function " + funcSelected + " does not exists.");
+                }
+    
+                if (funcSelected == 1) {
+
+                }
+    
+                if (funcSelected == 2) {
+
+                }
+    
+                if (funcSelected == 3) {
+
+                }
             } while (true);
         }
 
@@ -399,7 +413,7 @@ public class Front {
                 do {
                     // 1.appointment_date ; 2.start_time ; 3.description   <- values of appointment selected
                     appointmentInfo = b.getAppointmentInfo(appointmentID);
-                    System.out.println("Select edit option:");
+                    System.out.println("\nSelect edit option:");
                     System.out.println("1. Edit Appointment Date");
                     System.out.println("2. Edit Appointment Time");
                     System.out.println("3. Edit Description");
