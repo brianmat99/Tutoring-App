@@ -123,6 +123,37 @@ public class Front {
                 }
     
                 if (funcSelected == 3) {    // Accept/Decline
+                    while(true) {
+                        Scanner input = new Scanner(System.in);
+                        int apptAccept = -1;
+
+                        String[] tutorInfo = new String[5];
+                        tutorInfo = b.getTutorProfileByEmail(tutorEmail);
+
+                        int profileTutorID = Integer.parseInt(tutorInfo[0]);
+                        int numOfPendingAppts = b.numOfPendingApptByTutorID(profileTutorID);
+                        String[][] pendingAppts = new String[numOfPendingAppts][7];
+                        pendingAppts = b.getPendingApptByTutorID(profileTutorID);
+
+                        System.out.println("\n          Pending Appointments");
+
+                        for(int i = 0; i < numOfPendingAppts; i++) {
+                            String sName = b.getStudentNameFromStudentID(Integer.parseInt(pendingAppts[i][1]));
+                            System.out.println((i + 1) + ". with " + sName);
+                            System.out.println(pendingAppts[i][3] + " from " + pendingAppts[i][4] + "-" + pendingAppts[i][5]);
+                            System.out.println("Description: " + pendingAppts[i][6]);
+                        }
+
+                        System.out.println("Which appointment to accept: (0 to exit) ");
+                        apptAccept = input.nextInt();
+
+                        if(apptAccept == 0) {
+                            break;
+                        }
+                        else {
+                            b.acceptAppointmentByID(Integer.parseInt(pendingAppts[apptAccept][0]));
+                        }
+                    }
 
                 }
             } while (true);

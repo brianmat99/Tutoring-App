@@ -1134,4 +1134,98 @@ public class Back {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
+
+    public int numOfPendingApptByTutorID(int tID) {
+        try {
+            Statement stmt = c.createStatement();
+            String sql = "select count(appointment_id) " +
+                "from Appointment " +
+                "where app_tutor_id = ? " +
+                    "and accepted = 0 ";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int count = rs.getInt(1);
+
+            stmt.close();
+            return count;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        return -1;  // Return -1 for error, should not get here...
+    }
+
+    public String[][] getPendingApptByTutorID(int tID) {
+        String[][] failure = new String[12][1];
+        try {
+            int num = numOfPendingApptByTutorID(tID);
+            String[][] pendingAppts = new String[num][7];
+            Statement stmt = c.createStatement();
+            String sql = "select * " +
+                "from Appointment " +
+                "where app_tutor_id = ? " +
+                    "and accepted = 0 ";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int i = 0;
+            while(rs.next()) {
+                pendingAppts[i][0] = rs.getString(1);
+                pendingAppts[i][1] = rs.getString(2);
+                pendingAppts[i][2] = rs.getString(3);
+                pendingAppts[i][3] = rs.getString(4);
+                pendingAppts[i][4] = rs.getString(5);
+                pendingAppts[i][5] = rs.getString(6);
+                pendingAppts[i][6] = rs.getString(7);
+                i++;
+            }
+
+            stmt.close();
+            return pendingAppts;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        return failure;  // Return -1 for error, should not get here...
+    }
+    
+    public String getStudentNameFromStudentID(int sID) {
+        try {
+            String sql = "select name " +
+                "from Student " +
+                "where student_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, sID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            String sName = rs.getString(1);
+
+            return sName;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return "Error McErrorPants";  // Error
+    }
+
+    public void acceptAppointmentByID(int id) {
+        try {
+            String sql = "update Appointment " +
+                "set accepted = 1 " +
+                "where appointment_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            stmt.executeUpdate();
+            c.commit();
+
+            stmt.close();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
 }
