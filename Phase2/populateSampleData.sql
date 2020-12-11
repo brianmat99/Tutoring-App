@@ -46,7 +46,7 @@ VALUES
     (6, 'Intro to Physics', 'PHYS 008'),
     (6, 'Database Management', 'CSE 111'),
     (6, 'Operating Systems', 'CSE 150'),
-    (6, 'Advanced Programming', 'CSE 024')
+    (6, 'Advanced Programming', 'CSE 024'),
     (7, 'Intro Computer Applications', 'CSE 005'),
     (7, 'Discrete Mathematics', 'CSE 015'),
     (7, 'Introduction to Computing I', 'CSE 020'),
@@ -70,7 +70,10 @@ VALUES
     (3, 2, 8.0, 'Great tutor! Loved the technology he brought to help me understand.'),
     (5, 5, 2.0, 'I am stronger than Thor.'),
     (3, 5, 9.5, 'Awesome tutor! Would definitely recommend!'),
-    (4, 5, 9.9, 'Help me understand everything I needed for my final!');
+    (4, 5, 9.9, 'Help me understand everything I needed for my final!'),
+    (5, 1, 3.4, 'What a horrible tutor...'),
+    (5, 4, 1.0, 'Will not shut up about killing Thanos'),
+    (5, 2, 0.1, 'Did not really help');
 
 INSERT INTO Semester (academic_year, sem_name, start_date, end_date)
 VALUES 
@@ -90,6 +93,11 @@ VALUES
     (2, 6, 'Wed', '06:00:00', '09:30:00'),
     (2, 6, 'Sat', '06:00:00', '10:00:00'),
     (2, 6, 'Mon', '06:00:00', '09:30:00'),
+    (2, 7, 'Mon', '12:00:00', '14:00:00'),
+    (2, 7, 'Tue', '12:00:00', '14:00:00'),
+    (2, 7, 'Wed', '12:00:00', '14:00:00'),
+    (2, 7, 'Thu', '12:00:00', '14:00:00'),
+    (2, 7, 'Fri', '12:00:00', '14:00:00');
 
 
 --Insert availability and use delete if any tutor wants to get rid of any
