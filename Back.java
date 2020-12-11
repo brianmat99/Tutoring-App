@@ -579,10 +579,10 @@ public class Back {
         return failure;  // Error
     }
     
-    public String[][] getAppointments(String student){
+    public String[][] getStudentAppointments(String student){
         String[][] failure = new String[1][1];
         try {
-            int numAppointments = getNumOfAppointments(student);
+            int numAppointments = getNumOfAppointmentsStudent(student);
             String[][] appointments = new String[numAppointments][6];
             
 
@@ -613,7 +613,41 @@ public class Back {
         return failure; // If return this then function failed
     }
 
-    public int getNumOfAppointments(String student){
+    public String[][] getTutorAppointments(String Tutor){
+        String[][] failure = new String[1][1];
+        try {
+            int numAppointments = getNumOfAppointmentsTutor(Tutor);
+            String[][] appointments = new String[numAppointments][6];
+            
+
+            
+            String sql = "SELECT A.appointment_id, A.appointment_date, S.name as student_name, A.start_time, A.end_time, A.description " +
+                        "FROM Appointment A, Student S, Tutor T " +
+                        "WHERE app_student_id = student_id AND app_tutor_id = tutor_id " +
+                            "AND T.email LIKE ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+
+            stmt.setString(1, Tutor);
+            ResultSet rs = stmt.executeQuery();
+
+            int row = 0;
+            while(rs.next()){
+                for (int i = 0; i < 6; i++) {
+                    appointments[row][i] = rs.getString(i+1);
+                }
+                row++;
+            }
+            stmt.close();
+            return appointments;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return failure; // If return this then function failed
+    }
+
+    public int getNumOfAppointmentsStudent(String student){
         try {
             String sql = "select count(*) " +
                     "FROM Student, Appointment " +
@@ -621,6 +655,29 @@ public class Back {
                         "and Student.email LIKE ? ";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setString(1, student);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int num = rs.getInt(1);
+            stmt.close();
+            rs.close();
+            return num;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return -1;  // Error
+    }
+
+    public int getNumOfAppointmentsTutor(String tutor){
+        try {
+            String sql = "select count(*) " +
+                    "FROM Tutor, Appointment " +
+                    "WHERE tutor_id = app_tutor_id " +
+                        "and Tutor.email LIKE ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, tutor);
 
             ResultSet rs = stmt.executeQuery();
 
