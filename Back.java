@@ -1135,15 +1135,16 @@ public class Back {
         }
     }
 
-    public int numOfPendingApptByTutorID(int tID) {
+    public int numOfPendingApptByTutorID(int t) {
         try {
-            Statement stmt = c.createStatement();
-            String sql = "select count(appointment_id) " +
+            String sql = "select count(*) as c " +
                 "from Appointment " +
-                "where app_tutor_id = ? " +
-                    "and accepted = 0 ";
+                "where app_tutor_id = ? " + 
+                    "and accepted = 0; ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, t);
 
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery();
 
             int count = rs.getInt(1);
 
@@ -1161,13 +1162,14 @@ public class Back {
         try {
             int num = numOfPendingApptByTutorID(tID);
             String[][] pendingAppts = new String[num][7];
-            Statement stmt = c.createStatement();
             String sql = "select * " +
                 "from Appointment " +
                 "where app_tutor_id = ? " +
                     "and accepted = 0 ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, tID);
 
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery();
 
             int i = 0;
             while(rs.next()) {

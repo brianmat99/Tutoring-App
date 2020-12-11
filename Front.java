@@ -135,7 +135,12 @@ public class Front {
                         String[][] pendingAppts = new String[numOfPendingAppts][7];
                         pendingAppts = b.getPendingApptByTutorID(profileTutorID);
 
-                        System.out.println("\n          Pending Appointments");
+                        System.out.println("\n          Pending Appointments\n");
+
+                        if(numOfPendingAppts == 0) {
+                            System.out.println("No pending appointments\n");
+                            break;
+                        }
 
                         for(int i = 0; i < numOfPendingAppts; i++) {
                             String sName = b.getStudentNameFromStudentID(Integer.parseInt(pendingAppts[i][1]));
@@ -151,7 +156,8 @@ public class Front {
                             break;
                         }
                         else {
-                            b.acceptAppointmentByID(Integer.parseInt(pendingAppts[apptAccept][0]));
+                            b.acceptAppointmentByID(Integer.parseInt(pendingAppts[apptAccept - 1][0]));
+                            System.out.println("Appointment accepted!");
                         }
                     }
 
