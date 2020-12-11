@@ -840,6 +840,61 @@ public class Back {
         return -1;  // Error
     }
 
+    public int getNumOfStudentAppts(int sID) {
+        try {
+            String sql = "select count(*) " +
+                "from Appointment " +
+                "where app_student_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, sID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int num = rs.getInt(1);
+
+            return num;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return -1;  // Error
+    }
+
+    public String[][] getStudentAppts(int sID) {
+        String[][] failure = new String[1][1];
+        try {
+            int num = getNumOfStudentAppts(sID);
+            String[][] apptInfo = new String[num][7];
+            String sql = "select app_student_id, app_tutor_id, appointment_date, start_time, end_time, description, accepted " +
+                "from Appointment " +
+                "where app_student_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, sID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int i = 0;
+            while(rs.next()) {
+                apptInfo[i][0] = rs.getString(1);
+                apptInfo[i][1] = rs.getString(2);
+                apptInfo[i][2] = rs.getString(3);
+                apptInfo[i][3] = rs.getString(4);
+                apptInfo[i][4] = rs.getString(5);
+                apptInfo[i][5] = rs.getString(6);
+                apptInfo[i][6] = rs.getString(7);
+                i++;
+            }
+
+            return apptInfo;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return failure;  // Error
+    }
+
     public int getTutorIDFromName(String tn) {
         try {
             String sql = "select tutor_id " +
@@ -853,6 +908,87 @@ public class Back {
             int tutorID = rs.getInt(1);
 
             return tutorID;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return -1;  // Error
+    }
+
+    public String getTutorNameFromID(int tID) {
+        try {
+            String sql = "select name " +
+                "from Tutor " +
+                "where tutor_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, tID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            String tutorName = rs.getString(1);
+
+            return tutorName;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return "Error McErrorPants";  // Error
+    }
+
+    public void insertReview(int tID, int sID, double r, String co) {
+        try {
+            String sql = "insert into Reviews (r_tutor_id, r_student_id, rating, comment) " +
+                "values( ?, ?, ?, ? ) ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, sID);
+            stmt.setInt(2, tID);
+            stmt.setDouble(3, r);
+            stmt.setString(4, co);
+
+            stmt.executeUpdate();
+            c.commit();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
+    public int getSIDFromApptID(int a) {
+        try {
+            String sql = "select app_student_id " +
+                "from Appointment " +
+                "where appointment_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, a);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int sID = rs.getInt(1);
+
+            return sID;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return -1;  // Error
+    }
+
+    public int getTIDFromApptID(int a) {
+        try {
+            String sql = "select app_tutor_id " +
+                "from Appointment " +
+                "where appointment_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, a);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int tID = rs.getInt(1);
+
+            return tID;
 
         } catch(Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

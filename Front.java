@@ -40,7 +40,7 @@ public class Front {
                 }
     
                 if (funcSelected == 2) {
-                    viewAppointments();
+                    viewAppointments(b);
                 }
     
                 if (funcSelected == 3) {
@@ -48,7 +48,7 @@ public class Front {
                 }
     
                 if (funcSelected == 4) {
-                    logout();
+                    logout(b);
                     break;
                 }
     
@@ -344,13 +344,40 @@ public class Front {
         
     }
 
-    private static void viewAppointments() {
+    private static void viewAppointments(Back b) {
         //select all appointments belonging to current student
+        int sID = b.getStudentIDFromEmail(studentEmail);
+        int numOfAppts = b.getNumOfStudentAppts(sID);
+        String[][] apptInfo = new String[numOfAppts][7];
+        apptInfo = b.getStudentAppts(sID);
+
+        System.out.println();
+
+        for(int i = 0; i < numOfAppts; i++) {
+            String tName = b.getTutorNameFromID(Integer.parseInt(apptInfo[i][1]));
+            String apptDate = apptInfo[i][2];
+            String sTime = apptInfo[i][3];
+            String eTime = apptInfo[i][4];
+            String apptDesc = apptInfo[i][5];
+            
+            if(Integer.parseInt(apptInfo[i][6]) == 1) {
+                System.out.println((i + 1) + ". ACCEPTED");
+            }
+            else {
+                System.out.println((i + 1) + ". APPOINTMENT PENDING");
+            }
+            System.out.println("Tutor: " + tName);
+            System.out.println(apptDate + " " + sTime + "-" + eTime);
+            System.out.println("Description: " + apptDesc);
+        }
+
     }
 
     private static void manageAppointment(Back b) {
 
         int appointmentID = selectAppointment(b);
+        // Variables declared here to be used in entire function
+        String[] appointmentInfo = b.getAppointmentInfo(appointmentID);
         
         if (appointmentID != 0){
         do {
@@ -367,7 +394,7 @@ public class Front {
             if (func == 1) {
                 do {
                     // 1.appointment_date ; 2.start_time ; 3.description   <- values of appointment selected
-                    String[] appointmentInfo = b.getAppointmentInfo(appointmentID);
+                    appointmentInfo = b.getAppointmentInfo(appointmentID);
                     System.out.println("Select edit option:");
                     System.out.println("1. Edit Appointment Date");
                     System.out.println("2. Edit Appointment Time");
@@ -456,6 +483,15 @@ public class Front {
 
             //post review (insert into reviews)
             if (func == 2) {
+                System.out.println("Type review on one line: ");
+                String review = stringInput.nextLine();
+                System.out.println("Enter rating: ");
+                double userRating = input.nextDouble();
+
+                int studentID = b.getSIDFromApptID(appointmentID);
+                int tutorID = b.getTIDFromApptID(appointmentID);
+
+                b.insertReview(studentID, tutorID, userRating, review);
 
             }
 
@@ -473,8 +509,11 @@ public class Front {
     }
     }
 
-    private static void logout() {
+    private static void logout(Back b) {
         //application shuts down
+        b.closeConnection();
+        System.out.println("\nThanks for using PeerTutors 2.0! Have a great day! ");
+        System.exit(0);
     }
 
     public static int selectAppointment(Back b){
