@@ -1016,4 +1016,19 @@ public class Back {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
+
+    public void deleteApptFromID(int a) {
+        try {
+            String sql = "delete from Appointment " +
+                "where appointment_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, a);
+
+            stmt.executeUpdate();
+            c.commit();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
 }

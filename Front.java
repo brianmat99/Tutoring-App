@@ -497,7 +497,8 @@ public class Front {
 
             //cancel appointment (delete from appointments)
             if (func == 3) {
-                
+                b.deleteApptFromID(appointmentID);
+                System.out.println("Appointment deleted!\n");
             }
             
             //go back
