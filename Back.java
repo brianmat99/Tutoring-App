@@ -610,14 +610,13 @@ public class Back {
         try {
             String sql = "UPDATE Appointment  " + 
                         " SET appointment_date = ? " +
-                        " WHERE appointment_date = ? " +
-                            " AND appointment_id = ? ";
+                        " WHERE appointment_id = ? ";
             PreparedStatement stmt = c.prepareStatement(sql);
-            stmt.setString(1, oldDate);
-            stmt.setString(2, newDate);
-            stmt.setInt(3, appointment_id);
+            stmt.setString(1, newDate);
+            // stmt.setString(2, newDate);
+            stmt.setInt(2, appointment_id);
 
-            stmt.execute();
+            stmt.executeUpdate();
             c.commit();
 
             stmt.close();

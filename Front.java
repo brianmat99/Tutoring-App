@@ -161,9 +161,7 @@ public class Front {
     private static void manageAppointment(Back b) {
 
         int appointmentID = selectAppointment(b);
-        
-        // 1.appointment_date ; 2.start_time ; 3.comment   <- values of appointment selected
-        String[] appointmentInfo = b.getAppointmentInfo(appointmentID);
+    
 
         do {
             //edit appointment (update in appointment)
@@ -178,6 +176,8 @@ public class Front {
 
             if (func == 1) {
                 do {
+                    // 1.appointment_date ; 2.start_time ; 3.comment   <- values of appointment selected
+                    String[] appointmentInfo = b.getAppointmentInfo(appointmentID);
                     System.out.println("Select edit option:");
                     System.out.println("1. Edit Appointment Date");
                     System.out.println("2. Edit Start Time");

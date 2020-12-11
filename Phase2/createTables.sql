@@ -46,11 +46,10 @@ create table Appointment (
     appointment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     app_student_id INTEGER not null,
     app_tutor_id INTEGER not null,
-    appointment_date date not null,
+    appointment_date text not null,
     -- description varchar(200),
     start_time time not null,
-    end_time time not null,
-    comment varchar(200)    -- Might not need to this because of description or vice versa
+    end_time time not null    -- Might not need to this because of description or vice versa
 );
     
 create table Student (
