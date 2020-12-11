@@ -134,7 +134,7 @@ VALUES
     (2020, 'F', '2020-08-31', '2020-12-15'),
     (2020, 'S', '2021-01-01', '2020-05-20'),
     (2021, 'SU', '2021-06-12', '2020-08-20');
-INSERT INTO Availability (a_semester_id, a_tutor_id, day_of_week)
+INSERT INTO Availability (a_semester_id, a_tutor_id, day_of_week, start_time, end_time)
 VALUES 
     (1, 1, 'Su', '12:30:00', '13:30:00'),
     (1, 2, 'Sa', '18:30:00', '19:30:00'),
