@@ -91,26 +91,26 @@ public class Front {
                         profileFunc = input.nextInt();
 
                         if(profileFunc == 1) {
-                            System.out.println("Enter updated name: ");
+                            System.out.println("\nEnter updated name: ");
                             String updatedName = sInput.nextLine();
                             b.updateTutorName(updatedName, tutorEmail);
                             System.out.println("Name updated!");
                         }
                         if(profileFunc == 2) {
-                            System.out.println("Enter updated email: ");
+                            System.out.println("\nEnter updated email: ");
                             String updatedEmail = sInput.nextLine();
                             b.updateTutorEmail(updatedEmail, tutorEmail);
                             tutorEmail = updatedEmail;
                             System.out.println("Email updated!");
                         }
                         if(profileFunc == 3) {
-                            System.out.println("Enter updated phone number: ");
+                            System.out.println("\nEnter updated phone number: ");
                             String updatedPhone = sInput.nextLine();
                             b.updateTutorPhone(updatedPhone, tutorEmail);
                             System.out.println("Phone number updated!");
                         }
                         if(profileFunc == 4) {
-                            System.out.println("Enter updated description: ");
+                            System.out.println("\nEnter updated description: ");
                             String updatedPhone = sInput.nextLine();
                             b.updateTutorDesc(updatedPhone, tutorEmail);
                             System.out.println("Description updated!");
@@ -222,7 +222,7 @@ public class Front {
             if (accountType == 2) {
                 Scanner input2 = new Scanner(System.in);
                 // Insert into Tutor
-                System.out.println("Please enter your name: (i.e: Bob Smith)");
+                System.out.println("\nPlease enter your name: (i.e: Bob Smith)");
                 String name = input2.nextLine();
 
                 System.out.println("Please enter your email: (i.e: bobsmith123@gmail.com)");
@@ -362,18 +362,16 @@ public class Front {
         while(true) {
             int validDateEntered = 0;   // Starts false
 
-            System.out.println("Please enter the date requested for this session: (e.x: 1/2/2020)(M/D/Y)");
+            System.out.println("\nPlease enter the date requested for this session: (e.x: 1/2/2020)(M/D/Y)");
             date = input.next();
             dateParsed = date.split("/");
             month = Integer.parseInt(dateParsed[0]);
             day = Integer.parseInt(dateParsed[1]);
             year = Integer.parseInt(dateParsed[2]);
-            System.out.println("(m/d/y): (" + month + "/" + day + "/" + year + ")");
             myCalendar = new GregorianCalendar(year, (month - 1), day);
             myDate = myCalendar.getTime();
             simp = new SimpleDateFormat("E");
             dayUserEntered = simp.format(myDate);
-            System.out.println(dayUserEntered);
 
             for(int i = 0; i < numOfAvail; i++) {
                 if(tutorAvail[i][0].equals(dayUserEntered)) {
@@ -434,7 +432,6 @@ public class Front {
         System.out.println("Describe help required: ");
         input.nextLine();
         String userComment = input.nextLine();
-        System.out.println(userComment);
 
         int sID = b.getStudentIDFromEmail(studentEmail);
         int tID = b.getTutorIDFromName(tutorNames[tutorChosen][0]);
