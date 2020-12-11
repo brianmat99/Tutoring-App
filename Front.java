@@ -351,6 +351,10 @@ public class Front {
         String[][] apptInfo = new String[numOfAppts][7];
         apptInfo = b.getStudentAppts(sID);
 
+        if(numOfAppts == 0) {
+            System.out.println("You have no active appointments.\n");
+        }
+
         System.out.println();
 
         for(int i = 0; i < numOfAppts; i++) {
