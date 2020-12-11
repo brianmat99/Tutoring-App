@@ -13,6 +13,10 @@ public class Front {
         System.out.print("Please enter your name: ");
         Scanner input = new Scanner(System.in);
         student = input.nextLine();
+
+        //TODO: verify if the name exists in the database
+
+        System.out.println("Welcome " + student + "...");
         
         // if student
         if (res == 0){
