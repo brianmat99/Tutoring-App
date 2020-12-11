@@ -492,7 +492,7 @@ public class Front {
                 int tutorID = b.getTIDFromApptID(appointmentID);
 
                 b.insertReview(studentID, tutorID, userRating, review);
-
+                System.out.println("Review published!\n");
             }
 
             //cancel appointment (delete from appointments)
