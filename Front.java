@@ -64,15 +64,55 @@ public class Front {
                     System.out.println("Error: function " + funcSelected + " does not exists.");
                 }
     
-                if (funcSelected == 1) {
+                if (funcSelected == 1) {    // Manage Appointment
 
                 }
     
-                if (funcSelected == 2) {
+                if (funcSelected == 2) {    // Edit Profile
+                    Scanner input = new Scanner(System.in);
+                    Scanner sInput = new Scanner(System.in);
+                    int profileFunc;
+                    while(true) {
+                        String[] tutorInfo = new String[5];
+                        tutorInfo = b.getTutorProfileByEmail(tutorEmail);
+
+                        System.out.println("\n          Your profile");
+                        System.out.println("\nName: " + tutorInfo[1]);
+                        System.out.println("Email: " + tutorInfo[2]);
+                        System.out.println("Phone number: " + tutorInfo[3]);
+                        System.out.println("Description: " + tutorInfo[4]);
+
+                        System.out.println("\nPlease select a function: ");
+                        System.out.println("1. Update name ");
+                        System.out.println("2. Update email ");
+                        System.out.println("3. Update phone number ");
+                        System.out.println("4. Update description ");
+                        System.out.println("5. Exit profile");
+                        profileFunc = input.nextInt();
+
+                        if(profileFunc == 1) {
+                            System.out.println("Enter updated name: ");
+                            String updatedName = sInput.nextLine();
+                            b.updateTutorName(updatedName, tutorEmail);
+                            System.out.println("Name updated!");
+                        }
+                        if(profileFunc == 2) {
+                            
+                        }
+                        if(profileFunc == 3) {
+                            
+                        }
+                        if(profileFunc == 4) {
+                            
+                        }
+                        if(profileFunc == 5) {
+                            
+                        }
+                    }
 
                 }
     
-                if (funcSelected == 3) {
+                if (funcSelected == 3) {    // Accept/Decline
 
                 }
             } while (true);

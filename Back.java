@@ -1031,4 +1031,50 @@ public class Back {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
+
+    public String[] getTutorProfileByEmail(String em) {
+        String[] failure = new String[1234];
+        try {
+            String[] tutorInfo = new String[5];
+            String sql = "select * " +
+                "from Tutor " +
+                "where email = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, em);
+
+            ResultSet rs = stmt.executeQuery();
+
+            tutorInfo[0] = rs.getString(1);
+            tutorInfo[1] = rs.getString(2);
+            tutorInfo[2] = rs.getString(3);
+            tutorInfo[3] = rs.getString(4);
+            tutorInfo[4] = rs.getString(5);
+
+            return tutorInfo;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return failure;  // Error
+    }
+
+    public void updateTutorName(String n, String em) {
+        try {
+            String sql = "update Tutor " +
+                "set name = ? " +
+                "where email = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, n);
+            stmt.setString(2, em);
+
+            stmt.executeUpdate();
+            c.commit();
+
+            stmt.close();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
 }
