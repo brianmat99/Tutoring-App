@@ -37,8 +37,9 @@ create table Availability (
     availability_id INTEGER PRIMARY KEY AUTOINCREMENT,
     a_semester_id INTEGER not null,
     a_tutor_id INTEGER not null,
-    day_of_week varchar(2) not null    -- Su, M, Tu, W, Th, F, Sa How do we store multiple days?
-       -- Reference: https://www.sqlitetutorial.net/sqlite-date/
+    day_of_week varchar(2) not null,    -- Su, M, Tu, W, Th, F, Sa How do we store multiple days?
+    start_time time not null,   -- Reference: https://www.sqlitetutorial.net/sqlite-date/
+    end_time time not null
 );
 
 create table Appointment ( 
