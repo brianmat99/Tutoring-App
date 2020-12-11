@@ -50,7 +50,8 @@ create table Appointment (
     -- description varchar(200),
     start_time time not null,
     end_time time not null,
-    comment varchar(500)   -- Might not need to this because of description or vice versa
+    description varchar(500),   -- Might not need to this because of description or vice versa
+    accepted INTEGER not null default 0
 );
     
 create table Student (
@@ -66,8 +67,3 @@ create table Tutor (
     phone varchar(20),
     description varchar(500)
 );
-
-
-SELECT email
-FROM Student
-WHERE email = 'neymar2santos@gmail.com';
