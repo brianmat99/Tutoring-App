@@ -3,7 +3,8 @@ VALUES
     ('Neymar Jr', 'neymar2santos@gmail.com'),
     ('Kylian Mbappe', 'kmbappe@gmail.com'),
     ('Keanu Reeves', 'kreeves@movie.com'),
-    ('Ronald McDonald', 'mascot@happymeal.com');
+    ('Ronald McDonald', 'mascot@happymeal.com'),
+    ('Hulk Smash' , 'alwaysangry@gmail.com');
 
 INSERT INTO tutor (name, email, phone, description)
 VALUES 
@@ -41,7 +42,10 @@ VALUES
     (2, 3, 9.0, 'Very good tutor. Very breathtaking!'),
     (3, 4, 9.9, 'He really is the smartest guy you will ever meet'),
     (3, 1, 9.0, 'Really helped me out with my homework!'),
-    (3, 2, 8.0, 'Great tutor! Loved the technology he brought to help me understand.');
+    (3, 2, 8.0, 'Great tutor! Loved the technology he brought to help me understand.'),
+    (5, 5, 2.0, 'I am stronger than Thor.'),
+    (3, 5, 9.5, 'Awesome tutor! Would definitely recommend!'),
+    (4, 5, 9.9, 'Help me understand everything I needed for my final!');
 
 INSERT INTO Semester (academic_year, sem_name, start_date, end_date)
 VALUES 
@@ -66,4 +70,7 @@ VALUES
     (3, 3, '2020-09-12', '14:00:00', '15:00:00', 'Please help me build my AI', 0),
     (3, 3, '2020-09-14', '14:00:00', '15:00:00', 'I am almost done with my AI. Just need a little more help', 1),
     (1, 4, '2021-03-14', '09:00:00', '10:00:00', 'Can you help me write my essay?', 0),
-    (2, 4, '2021-02-09', '12:00:00', '01:00:00', 'Need some help with WW1 essay', 1);
+    (2, 4, '2021-02-09', '12:00:00', '13:00:00', 'Need some help with WW1 essay', 1),
+    (5, 3, '2020-12-11', '14:30:00', '16:00:00', 'Need help with my final.', 1),
+    (5, 4, '2020-12-08', '13:00:00', '14:00:00', 'I need some help with my assignments. I do not understand.', 1),
+    (5, 5, '2020-12-10', '16:30:00', '18:00:00', 'Could really use some help, I am so lost.', 0);
