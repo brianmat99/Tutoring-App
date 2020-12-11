@@ -14,19 +14,25 @@ VALUES
     ('Steve Rodgers', 'steveshield@hotmail.com', '4879512364', 'Happy to help in any way I can.'),
     ('Thor Odinson', 'thor@godmail.com', '1231231234', 'Want to hear about how I killed Thanos?'),
     ('Natasha Romanoff', 'nat@hotmail.com', '4515786512', 'I know a lot about history.'),
-    ('Florin Rusu', 'frusu@ucmerced.edu', '1235638625', 'Computer science professor at UC Merced.');
+    ('Florin Rusu', 'frusu@ucmerced.edu', '1235638625', 'Computer science professor at UC Merced.'),
+    ('Peter Parker', 'pparker@nyu.edu', '5142469785', 'Anyone need help?'),
+    ('Thomas Brush', 'thomas@brush.com', '3413513535', 'I love drawing. Want to learn a thing or two?');
 
 INSERT INTO CoursesSupported (cs_tutor_id, course_name, acronym)
 VALUES 
     (1, 'Computer Architecture', 'CSE 140'),
     (1, 'Operating System', 'CSE 150'),
     (1, 'Vector Calculus', 'MATH 023'),
+    (1, 'Data Structures', 'CSE 030'),
     (1, 'Database Management', 'CSE 111'),
     (1, 'Software Engineering', 'CSE 120'),
+    (1, 'Mobile Computing', 'CSE 162'),
+    (1, 'Drawing I', 'GASP 010'),
     (2, 'Vector Calculus', 'MATH 023'),
     (2, 'Linear Algebra', 'MATH 024'),
     (2, 'Operating Systems', 'CSE 150'),
     (2, 'Intro to Physics', 'PHYS 008'),
+    (2, 'Advanced Programming', 'CSE 024'),
     (3, 'Advanced Programming', 'CSE 024'),
     (3, 'Drawing I', 'GASP 010'),
     (3, 'Molecular Electronic Structure', 'CHEM 225'),
@@ -34,6 +40,8 @@ VALUES
     (3, 'Intro to Computer Vision', 'CSE 185'),
     (3, 'Software Engineering', 'CSE 120'),
     (3, 'Advanced Operating Systems', 'EECS 251'),
+    (3, 'Algorithm Design and Analysis', 'CSE 100'),
+    (3, 'Intro to Object Orient Program', 'CSE 165'),
     (4, 'Advanced Shakespeare', 'ENG 151'),
     (4, 'Design I', 'GASP 013A'),
     (4, 'Drawing I', 'GASP 010'),
@@ -41,6 +49,7 @@ VALUES
     (5, 'Human Origins', 'ANTH 160'),
     (5, 'Religion and Healing', 'ANTH 122'),
     (5, 'Nutrition', 'BIO 060'),
+    (5, 'Data Structures', 'CSE 030'),
     (6, 'History of Things', 'HIST 051'),
     (6, 'Britain, 1500-1750', 'HIST 179'),
     (6, 'Intro to Physics', 'PHYS 008'),
@@ -54,8 +63,27 @@ VALUES
     (7, 'Intro to Programming', 'CSE 022'),
     (7, 'Advanced Programming', 'CSE 024'),
     (7, 'Data Structures', 'CSE 030'),
-    (7, 'Computer Organization', 'CSE 031');
-    
+    (7, 'Computer Organization', 'CSE 031'),
+    (7, 'Algorithm Design and Analysis', 'CSE 100'),
+    (7, 'Software Engineering', 'CSE 120'),
+    (7, 'Computer Architecture', 'CSE 140'),
+    (7, 'Mobile Computing', 'CSE 162'),
+    (7, 'Intro to Object Orient Program', 'CSE 165'),
+    (7, 'Intro Parallel Computing', 'CSE 179'),
+    (7, 'Intro to Computer Vision', 'CSE 185'),
+    (8, 'Drawing I', 'GASP 010'),
+    (8, 'Drawing II', 'GASP 110'),
+    (8, 'Intro to Physics', 'PHYS 008'),
+    (8, 'Special Relativity Minicourse', 'PHYS 126'),
+    (8, 'Algorithm Design and Analysis', 'CSE 100'),
+    (8, 'Advanced Programming', 'CSE 024'),
+    (8, 'Database Management', 'CSE 111'),
+    (8, 'Human Origins', 'ANTH 160'),
+    (9, 'Drawing I', 'GASP 010'),
+    (9, 'Drawing II', 'GASP 110'),
+    (9, 'Design I', 'GASP 013A');
+
+
     
 
 
@@ -73,7 +101,23 @@ VALUES
     (4, 5, 9.9, 'Help me understand everything I needed for my final!'),
     (5, 1, 3.4, 'What a horrible tutor...'),
     (5, 4, 1.0, 'Will not shut up about killing Thanos'),
-    (5, 2, 0.1, 'Did not really help');
+    (5, 2, 0.1, 'Did not really help'),
+    (6, 5, 9.9, 'So dreamy'),
+    (6, 2, 7.9, 'Great! Very helpful!'),
+    (6, 4, 8.0, 'What a great tutor! Very patient!'),
+    (6, 1, 7.5, 'I like how she took the time to get to know me'),
+    (7, 1, 9.8, 'Awesome professor!'),
+    (7, 2, 9.0, 'Honestly one of the best CSE professors at UC Merced'),
+    (7, 3, 9.6, 'Great at explaining concepts!'),
+    (7, 4, 9.8, 'I really like the way he explaing things!'),
+    (7, 5, 9.9, 'Makes hard concepts so easy!'),
+    (8, 4, 9.9, 'How can you be so young, yet so smart?'),
+    (8, 5, 9.9, 'Respect.'),
+    (8, 1, 9.9, 'Literally the smartest young dude I have ever met'),
+    (9, 3, 8.0, 'For real a great artist!'),
+    (9, 5, 9.0, 'w o w'),
+    (9, 1, 8.2, 'Check this guy out!');
+
 
 INSERT INTO Semester (academic_year, sem_name, start_date, end_date)
 VALUES 
@@ -83,13 +127,20 @@ VALUES
 INSERT INTO Availability (a_semester_id, a_tutor_id, day_of_week, start_time, end_time)
 VALUES 
     (1, 1, 'Sun', '17:00:00', '20:30:00'),
+    (1, 1, 'Sat', '18:00:00', '20:30:00'),
+    (1, 1, 'Wed', '17:00:00', '18:30:00'),
     (2, 2, 'Fri', '12:30:00', '18:30:00'),
+    (2, 2, 'Tue', '13:30:00', '15:00:00'),
     (1, 3, 'Mon', '08:00:00', '10:00:00'),
+    (1, 3, 'Tue', '14:00:00', '16:00:00'),
     (1, 3, 'Fri', '08:00:00', '10:00:00'),
+    (1, 3, 'Wed', '08:00:00', '10:00:00'),
     (2, 4, 'Tue', '10:00:00', '12:30:00'),
     (2, 4, 'Sat', '06:00:00', '12:00:00'),
+    (2, 4, 'Sun', '08:00:00', '12:00:00'),
     (1, 5, 'Mon', '13:00:00', '15:00:00'),
     (1, 5, 'Fri', '13:00:00', '15:00:00'),
+    (1, 5, 'Tue', '10:00:00', '12:00:00'),
     (2, 6, 'Wed', '06:00:00', '09:30:00'),
     (2, 6, 'Sat', '06:00:00', '10:00:00'),
     (2, 6, 'Mon', '06:00:00', '09:30:00'),
@@ -97,7 +148,15 @@ VALUES
     (2, 7, 'Tue', '12:00:00', '14:00:00'),
     (2, 7, 'Wed', '12:00:00', '14:00:00'),
     (2, 7, 'Thu', '12:00:00', '14:00:00'),
-    (2, 7, 'Fri', '12:00:00', '14:00:00');
+    (2, 7, 'Fri', '12:00:00', '14:00:00'),
+    (2, 8, 'Thu', '12:00:00', '14:00:00'),
+    (2, 8, 'Fri', '12:00:00', '14:00:00'),
+    (1, 8, 'Sun', '08:00:00', '10:00:00'),
+    (1, 8, 'Wed', '17:00:00', '18:30:00'),
+    (1, 9, 'Fri', '08:00:00', '10:00:00'),
+    (1, 9, 'Wed', '08:00:00', '10:00:00'),
+    (2, 9, 'Tue', '10:00:00', '12:00:00'),
+    (1, 9, 'Sat', '09:00:00', '13:00:00');
 
 
 --Insert availability and use delete if any tutor wants to get rid of any
@@ -113,4 +172,12 @@ VALUES
     (2, 4, '2021-02-09', '12:00:00', '13:00:00', 'Need some help with WW1 essay', 1),
     (5, 3, '2020-12-11', '14:30:00', '16:00:00', 'Need help with my final.', 1),
     (5, 4, '2020-12-08', '13:00:00', '14:00:00', 'I need some help with my assignments. I do not understand.', 1),
-    (5, 5, '2020-12-10', '16:30:00', '18:00:00', 'Could really use some help, I am so lost.', 0);
+    (5, 5, '2020-12-10', '16:30:00', '18:00:00', 'Could really use some help, I am so lost.', 0),
+    (5, 8, '2020-12-14', '10:00:00', '11:00:00', 'Can we look at some problems?', 0),
+    (4, 9, '2020-09-14', '12:00:00', '13:00:00', 'Can you help me with my final?', 1),
+    (1, 7, '2021-03-14', '09:00:00', '10:00:00', 'Not sure how to start this lab...', 0),
+    (2, 7, '2021-02-09', '12:00:00', '13:00:00', 'Could use some help...', 1),
+    (2, 6, '2020-09-23', '12:30:00', '13:30:00', 'HELP', 0),
+    (1, 1, '2021-02-15', '18:30:00', '19:30:00', 'This assignment is killing me', 1),
+    (4, 6, '2020-09-19', '05:00:00', '06:00:00', 'Not sure how do', 1),
+    (5, 4, '2021-03-14', '09:00:00', '10:30:00', 'Need help with assignment pls', 0);
