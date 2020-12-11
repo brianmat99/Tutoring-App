@@ -40,27 +40,28 @@ create table Semester (
     semester_id INTEGER PRIMARY KEY AUTOINCREMENT, -- Not super sure the type of this, need to discuss with Brian
     academic_year decimal(4, 0) not null,
     sem_name varchar(2) not null,   -- Fall (F), Spring (S), Summer (SU)
-    start_date date not null,   -- I think this is the correct type
-    end_date date not null 
+    start_date text not null,   -- I think this is the correct type
+    end_date text not null 
 );
 
 create table Availability (
     availability_id INTEGER PRIMARY KEY AUTOINCREMENT,
     a_semester_id INTEGER not null,
     a_tutor_id INTEGER not null,
-    day_of_week varchar(2) not null   -- Su, M, Tu, W, Th, F, Sa How do we store multiple days?
-       -- Reference: https://www.sqlitetutorial.net/sqlite-date/   
+    day_of_week varchar(2) not null,    -- Su, M, Tu, W, Th, F, Sa How do we store multiple days?
+    start_time time not null,   -- Reference: https://www.sqlitetutorial.net/sqlite-date/
+    end_time time not null
 );
 
 create table Appointment ( 
     appointment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     app_student_id INTEGER not null,
     app_tutor_id INTEGER not null,
-    appointment_date date not null,
+    appointment_date text not null,
     -- description varchar(200),
     start_time time not null,
     end_time time not null,
-    comment varchar(200)    -- Might not need to this because of description or vice versa
+    description varchar(500)   -- Might not need to this because of description or vice versa
 );
     
 create table Student (
