@@ -23,7 +23,7 @@ public class Front {
         
         // if student
         if (res == 0){
-            System.out.println("Student menu...");
+            System.out.println("\n          Student Menu");
             do {
                 funcSelected = showOptionsStudent();
     
@@ -54,7 +54,7 @@ public class Front {
         
         // if tutor
         if (res == 1){
-            System.out.println("Tutor menu...");
+            System.out.println("\n          Tutor Menu");
             do {
                 showOptionsTutor();
             } while (true);
@@ -93,17 +93,19 @@ public class Front {
         else if (account == 2){
             // Sign up
             System.out.println("\n\nSign up process...");
-            System.out.println("Are you a student or a tutor?\n1. Student\n2.Tutor");
+            System.out.println("Are you a student or a tutor?\n1. Student\n2. Tutor");
             int accountType = input.nextInt();
             // Student account
             if (accountType == 1) {
-                System.out.println("Please enter your name: (i.e: Bob Smith)\n");
-                String name = input.nextLine();
-                System.out.println("Please enter your email: (i.e: bobsmith123@gmail.com)\n");
+                Scanner input2 = new Scanner(System.in);
+                System.out.println("Please enter your name: (i.e: Bob Smith)");
+                String name = input2.nextLine();
+
+                System.out.println("Please enter your email: (i.e: bobsmith123@gmail.com)");
                 String email = input.next();
                 // Insert into Student
                 b.insertNewStudent(name, email);
-                System.out.println("Thank you for signing up!\nTransferring you to main menu");
+                System.out.println("\nThank you for signing up!\nTransferring you to main menu...");
                 studentEmail = email;
                 response = 0;
             }
@@ -229,8 +231,8 @@ public class Front {
     private static void manageAppointment(Back b) {
 
         int appointmentID = selectAppointment(b);
-    
-
+        
+        if (appointmentID != 0){
         do {
             //edit appointment (update in appointment)
             System.out.println("Select manage option:");
@@ -349,6 +351,7 @@ public class Front {
             
         } while (true);
     }
+    }
 
     private static void logout() {
         //application shuts down
@@ -357,6 +360,10 @@ public class Front {
     public static int selectAppointment(Back b){
         //store all appointments into 2d array
         int numOfAppointments = b.getNumOfAppointments(studentEmail);
+        if (numOfAppointments == 0){
+            System.out.println("\nYou have no appointments scheduled.\n");
+            return 0;
+        }
         String[][] appointments = new String[numOfAppointments][6]; //100 rows, 5 columns (appoitnmentID, tutorID, appointment_date, start_time, end_time, comment)
         appointments = b.getAppointments(studentEmail);
         System.out.println("\nAll available appointments: ");

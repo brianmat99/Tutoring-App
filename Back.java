@@ -765,7 +765,10 @@ public class Back {
             ResultSet rs = stmt.executeQuery();
             c.commit();
 
-            fetchedEmail = rs.getString(1); 
+            if (rs.next()){
+                fetchedEmail = rs.getString(1); 
+            }
+             
             stmt.close();
 
             return fetchedEmail;

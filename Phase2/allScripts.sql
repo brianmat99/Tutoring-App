@@ -61,7 +61,8 @@ create table Appointment (
     -- description varchar(200),
     start_time time not null,
     end_time time not null,
-    description varchar(500)   -- Might not need to this because of description or vice versa
+    description varchar(500),   -- Might not need to this because of description or vice versa
+    accepted INTEGER not null default 0
 );
     
 create table Student (

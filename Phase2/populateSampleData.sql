@@ -58,12 +58,12 @@ VALUES
 
 --Insert availability and use delete if any tutor wants to get rid of any
 
-INSERT INTO Appointment (app_student_id, app_tutor_id, appointment_date, start_time, end_time, comment)
+INSERT INTO Appointment (app_student_id, app_tutor_id, appointment_date, start_time, end_time, description, accepted)
 VALUES 
-    (2, 2, '2020-09-23', '12:30:00', '13:30:00', 'Need Help with comp sci.'),
-    (1, 2, '2021-02-15', '18:30:00', '19:30:00', null),
-    (4, 3, '2020-10-24', '12:00:00', '13:00:00', 'Really need some help making my mechatronic'),
-    (3, 3, '2020-09-12', '14:00:00', '15:00:00', 'Please help me build my AI'),
-    (3, 3, '2020-09-14', '14:00:00', '15:00:00', 'I am almost done with my AI. Just need a little more help'),
-    (1, 4, '2021-03-14', '09:00:00', '10:00:00', 'Can you help me write my essay?'),
-    (2, 4, '2021-02-09', '12:00:00', '01:00:00', 'Need some help with WW1 essay');
+    (2, 2, '2020-09-23', '12:30:00', '13:30:00', 'Need Help with comp sci.', 0),
+    (1, 2, '2021-02-15', '18:30:00', '19:30:00', 'Need help for final.', 1),
+    (4, 3, '2020-10-24', '12:00:00', '13:00:00', 'Really need some help making my mechatronic', 0),
+    (3, 3, '2020-09-12', '14:00:00', '15:00:00', 'Please help me build my AI', 0),
+    (3, 3, '2020-09-14', '14:00:00', '15:00:00', 'I am almost done with my AI. Just need a little more help', 1),
+    (1, 4, '2021-03-14', '09:00:00', '10:00:00', 'Can you help me write my essay?', 0),
+    (2, 4, '2021-02-09', '12:00:00', '01:00:00', 'Need some help with WW1 essay', 1);
