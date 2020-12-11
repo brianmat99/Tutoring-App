@@ -111,7 +111,24 @@ public class Front {
             }
             // Tutor account
             if (accountType == 2) {
+                Scanner input2 = new Scanner(System.in);
                 // Insert into Tutor
+                System.out.println("Please enter your name: (i.e: Bob Smith)");
+                String name = input2.nextLine();
+
+                System.out.println("Please enter your email: (i.e: bobsmith123@gmail.com)");
+                String email = input.next();
+
+                System.out.println("Please enter your phone number: (i.e: 4153397200)");
+                String phone = input.next();
+                
+                System.out.println("Please enter a profile description: (i.e: I'm excited to help!)");
+                String description = input2.nextLine();
+
+                b.insertNewTutor(name, email, phone, description);
+                System.out.println("\nThank you for signing up!\nTransferring you to main menu...");
+                tutorEmail = email;
+                response = 1;
             }
         }
         else {

@@ -768,7 +768,7 @@ public class Back {
             if (rs.next()){
                 fetchedEmail = rs.getString(1); 
             }
-             
+
             stmt.close();
 
             return fetchedEmail;
@@ -787,6 +787,27 @@ public class Back {
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setString(1, name);
             stmt.setString(2, email);
+
+            stmt.executeUpdate();
+            c.commit();
+
+            stmt.close();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
+    public void insertNewTutor (String name, String email, String phone, String description){
+        try {
+            String sql = "INSERT INTO Tutor (name, email, phone, description) " + 
+                        " VALUES (?,?,?,?)";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, name);
+            stmt.setString(2, email);
+            stmt.setString(3, phone);
+            stmt.setString(4, description);
 
             stmt.executeUpdate();
             c.commit();
