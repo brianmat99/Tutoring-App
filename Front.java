@@ -97,7 +97,15 @@ public class Front {
             int accountType = input.nextInt();
             // Student account
             if (accountType == 1) {
+                System.out.println("Please enter your name: (i.e: Bob Smith)\n");
+                String name = input.nextLine();
+                System.out.println("Please enter your email: (i.e: bobsmith123@gmail.com)\n");
+                String email = input.next();
                 // Insert into Student
+                b.insertNewStudent(name, email);
+                System.out.println("Thank you for signing up!\nTransferring you to main menu");
+                studentEmail = email;
+                response = 0;
             }
             // Tutor account
             if (accountType == 2) {

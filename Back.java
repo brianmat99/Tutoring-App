@@ -775,4 +775,23 @@ public class Back {
         }
         return failure;
     }
+
+    public void insertNewStudent(String name, String email) {
+        try {
+            String sql = "INSERT INTO Student (name, email) " + 
+                        " VALUES (?,?)";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, name);
+            stmt.setString(2, email);
+
+            stmt.executeUpdate();
+            c.commit();
+
+            stmt.close();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
 }
