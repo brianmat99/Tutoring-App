@@ -29,8 +29,8 @@ create table Semester (
     semester_id INTEGER PRIMARY KEY AUTOINCREMENT, -- Not super sure the type of this, need to discuss with Brian
     academic_year decimal(4, 0) not null,
     sem_name varchar(2) not null,   -- Fall (F), Spring (S), Summer (SU)
-    start_date date not null,   -- I think this is the correct type
-    end_date date not null 
+    start_date text not null,   -- I think this is the correct type
+    end_date text not null 
 );
 
 create table Availability (
