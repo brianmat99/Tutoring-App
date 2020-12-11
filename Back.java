@@ -1077,4 +1077,61 @@ public class Back {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
+
+    public void updateTutorEmail(String n, String em) {
+        try {
+            String sql = "update Tutor " +
+                "set email = ? " +
+                "where email = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, n);
+            stmt.setString(2, em);
+
+            stmt.executeUpdate();
+            c.commit();
+
+            stmt.close();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
+    public void updateTutorPhone(String n, String em) {
+        try {
+            String sql = "update Tutor " +
+                "set phone = ? " +
+                "where email = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, n);
+            stmt.setString(2, em);
+
+            stmt.executeUpdate();
+            c.commit();
+
+            stmt.close();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
+    public void updateTutorDesc(String n, String em) {
+        try {
+            String sql = "update Tutor " +
+                "set description = ? " +
+                "where email = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, n);
+            stmt.setString(2, em);
+
+            stmt.executeUpdate();
+            c.commit();
+
+            stmt.close();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
 }

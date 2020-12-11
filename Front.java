@@ -97,16 +97,26 @@ public class Front {
                             System.out.println("Name updated!");
                         }
                         if(profileFunc == 2) {
-                            
+                            System.out.println("Enter updated email: ");
+                            String updatedEmail = sInput.nextLine();
+                            b.updateTutorEmail(updatedEmail, tutorEmail);
+                            tutorEmail = updatedEmail;
+                            System.out.println("Email updated!");
                         }
                         if(profileFunc == 3) {
-                            
+                            System.out.println("Enter updated phone number: ");
+                            String updatedPhone = sInput.nextLine();
+                            b.updateTutorPhone(updatedPhone, tutorEmail);
+                            System.out.println("Phone number updated!");
                         }
                         if(profileFunc == 4) {
-                            
+                            System.out.println("Enter updated description: ");
+                            String updatedPhone = sInput.nextLine();
+                            b.updateTutorDesc(updatedPhone, tutorEmail);
+                            System.out.println("Description updated!");
                         }
                         if(profileFunc == 5) {
-                            
+                            break;
                         }
                     }
 
