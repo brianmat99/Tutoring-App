@@ -48,9 +48,8 @@ create table Availability (
     availability_id INTEGER PRIMARY KEY AUTOINCREMENT,
     a_semester_id INTEGER not null,
     a_tutor_id INTEGER not null,
-    day_of_week varchar(2) not null,    -- Su, M, Tu, W, Th, F, Sa How do we store multiple days?
-    start_time time not null,   -- Reference: https://www.sqlitetutorial.net/sqlite-date/
-    end_time time not null 
+    day_of_week varchar(2) not null   -- Su, M, Tu, W, Th, F, Sa How do we store multiple days?
+       -- Reference: https://www.sqlitetutorial.net/sqlite-date/   
 );
 
 create table Appointment ( 
@@ -135,20 +134,22 @@ VALUES
     (2020, 'F', '2020-08-31', '2020-12-15'),
     (2020, 'S', '2021-01-01', '2020-05-20'),
     (2021, 'SU', '2021-06-12', '2020-08-20');
-INSERT INTO Availability (a_semester_id, a_tutor_id, day_of_week, start_time, end_time)
+INSERT INTO Availability (a_semester_id, a_tutor_id, day_of_week)
 VALUES 
-    (1, 1, 'S', '17:00:00', '20:30:00'),
-    (2, 2, 'F', '12:30:00', '18:30:00'),
-    (1, 3, 'M', '08:00:00', '10:00:00'),
-    (1, 3, 'F', '08:00:00', '10:00:00'),
-    (2, 4, 'Tu', '10:00:00', '12:30:00');
+    (1, 1, 'Su'),
+    (1, 2, 'Sa'),
+    (1, 2, 'W'),
+    (2, 2, 'F'),
+    (1, 3, 'M'),
+    (1, 3, 'F'),
+    (2, 4, 'Tu');
 
 --Insert availability and use delete if any tutor wants to get rid of any
 
 INSERT INTO Appointment (app_student_id, app_tutor_id, appointment_date, start_time, end_time, comment)
 VALUES 
     (2, 2, '2020-09-23', '12:30:00', '13:30:00', 'Need Help with comp sci.'),
-    (1, 2, '2021-02-15', '18:30:00', '19:30:00', null),
+    (1, 2, '2021-02-15', '18:30:00', '19:30:00', 'Need help for final.'),
     (4, 3, '2020-10-24', '12:00:00', '13:00:00', 'Really need some help making my mechatronic'),
     (3, 3, '2020-09-12', '14:00:00', '15:00:00', 'Please help me build my AI'),
     (3, 3, '2020-09-14', '14:00:00', '15:00:00', 'I am almost done with my AI. Just need a little more help'),
@@ -199,6 +200,12 @@ WHERE a_tutor_id = tutor_id
 
 --#7: Find all appointments schedule for student "Neymar Jr"
 SELECT S.name, T.name, appointment_date, start_time, end_time, comment
+FROM Appointment, Student S, Tutor T
+WHERE app_student_id = student_id AND app_tutor_id = tutor_id
+    AND S.name LIKE 'Neymar Jr';
+
+--adjustment
+SELECT appointment_date, T.name as tutor_name, start_time, end_time, comment
 FROM Appointment, Student S, Tutor T
 WHERE app_student_id = student_id AND app_tutor_id = tutor_id
     AND S.name LIKE 'Neymar Jr';
@@ -329,3 +336,14 @@ where student_id =
     from student
     where name = 'Kylian Mbappe');
 --TODO: Write some more complex queries like group by, union, etc
+
+--#21: number of appointments for a particular student
+select count(*)
+FROM Student, Appointment
+WHERE student_id = app_student_id
+    and Student.name LIKE 'Neymar Jr';
+
+--#22: select appointment info based off appointment id:
+SELECT *
+FROM Appointment
+WHERE appointment_id = 1;

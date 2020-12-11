@@ -1,16 +1,19 @@
 import java.util.Scanner;
 
 public class Front {
-    public static int student;
-    public static int tutorID;
+    public static String student;
     public static void main(String[] args) {
         Back b = new Back();
-        b.openConnection("Phase2/database.sqlite");
+        b.openConnection("Phase2/newdb.sqlite");
 
         int res = login();
         int funcSelected;
 
         System.out.println("Welcome to PeerTutors 2.0!");
+        System.out.print("Please enter your name: ");
+        Scanner input = new Scanner(System.in);
+        student = input.nextLine();
+        
         // if student
         if (res == 0){
             do {
@@ -29,7 +32,7 @@ public class Front {
                 }
     
                 if (funcSelected == 3) {
-                    manageAppointment();
+                    manageAppointment(b);
                 }
     
                 if (funcSelected == 4) {
@@ -40,13 +43,14 @@ public class Front {
             } while (true);
         }
         
+        
         // if tutor
         if (res == 1){
             do {
                 showOptionsTutor();
             } while (true);
         }
-        
+        b.closeConnection();
     }
 
     public static int login() {
@@ -150,10 +154,12 @@ public class Front {
         //select all appointments belonging to current student
     }
 
-    private static void manageAppointment() {
+    private static void manageAppointment(Back b) {
 
-        int appointmentID = selectAppointment();
+        int appointmentID = selectAppointment(b);
         
+        // 1.appointment_date ; 2.start_time ; 3.comment   <- values of appointment selected
+        String[] appointmentInfo = b.getAppointmentInfo(appointmentID);
 
         do {
             //edit appointment (update in appointment)
@@ -175,9 +181,12 @@ public class Front {
                     System.out.println("4. Go back");
                     int editChoice = input.nextInt();
                     if (editChoice == 1) {
-                        System.out.print("Enter new appointment date: ");
+                        System.out.println("Old appointment date: " + appointmentInfo[0]);
+                        System.out.print("Enter new appointment date: (i.e: 2020-01-23)\n");
                         String newDate = stringInput.next();
                         // update appointment_date in appointment
+                        // TODO: check if new date entered is withing the semester selected
+                        b.updateAppointmentDate(appointmentInfo[0], newDate, appointmentID);
                         System.out.println("Appointment date updated!\n");
                         
                     }
@@ -221,19 +230,33 @@ public class Front {
         //application shuts down
     }
 
-    public static int selectAppointment(){
+    public static int selectAppointment(Back b){
         //store all appointments into 2d array
-        String[][] appointments = new String[100][6]; //100 rows, 5 columns (appoitnmentID, tutorID, appointment_date, start_time, end_time, comment)
-        System.out.println("Select the appointment to manage: ");
+        int numOfAppointments = b.getNumOfAppointments(student);
+        String[][] appointments = new String[numOfAppointments][6]; //100 rows, 5 columns (appoitnmentID, tutorID, appointment_date, start_time, end_time, comment)
+        appointments = b.getAppointments(student);
+        System.out.println("\nAll available appointments: ");
         //search all appointments for student
-        for (int i = 1; i <= 100; i++) {
-            for (int j = 1; j < 6; j++) {
-                System.out.println(i + ". " + appointments[i][j]);
-            }
+        for (int i = 0; i < numOfAppointments; i++) {
+                System.out.println(i+1 + ". " + "Appointment date: " + appointments[i][1] + "\n " +
+                                "  Tutor name: " + appointments[i][2] + "\n " +
+                                "  Start time: " + appointments[i][3] + "\n " +
+                                "  End time: " + appointments[i][4] + "\n " +
+                                "  Comment: " + appointments[i][5] + "\n"               
+                ); 
         }
+        System.out.print("Select the appointment to manage: ");
 
         Scanner input = new Scanner(System.in);
         int appointmentChosen = input.nextInt() - 1;
+
+        System.out.println("\nYou selected appointment #" + (appointmentChosen+1) + ":");
+        System.out.println(     "   Appointment date: " + appointments[appointmentChosen][1] + "\n " +
+                                "  Tutor name: " + appointments[appointmentChosen][2] + "\n " +
+                                "  Start time: " + appointments[appointmentChosen][3] + "\n " +
+                                "  End time: " + appointments[appointmentChosen][4] + "\n " +
+                                "  Comment: " + appointments[appointmentChosen][5] + "\n"               
+                ); 
 
         // appointmentChosen is the appointment selected and points to the row. We can use the row to fetch column values
         String appointment_id = appointments[appointmentChosen][0];

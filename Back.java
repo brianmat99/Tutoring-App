@@ -510,4 +510,107 @@ public class Back {
         return failure;  // Error
     }
     
+    public String[][] getAppointments(String student){
+        String[][] failure = new String[1][1];
+        try {
+            int numAppointments = getNumOfAppointments(student);
+            String[][] appointments = new String[numAppointments][6];
+            
+
+            
+            String sql = "SELECT appointment_id, appointment_date, T.name as tutor_name, start_time, end_time, comment " +
+                        "FROM Appointment, Student S, Tutor T " +
+                        "WHERE app_student_id = student_id AND app_tutor_id = tutor_id " +
+                            "AND S.name LIKE ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+
+            stmt.setString(1, student);
+            ResultSet rs = stmt.executeQuery();
+
+            int row = 0;
+            while(rs.next()){
+                for (int i = 0; i < 6; i++) {
+                    appointments[row][i] = rs.getString(i+1);
+                }
+                row++;
+            }
+
+            return appointments;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return failure; // If return this then function failed
+    }
+
+    public int getNumOfAppointments(String student){
+        try {
+            String sql = "select count(*) " +
+                    "FROM Student, Appointment " +
+                    "WHERE student_id = app_student_id " +
+                        "and Student.name LIKE ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, student);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int num = rs.getInt(1);
+
+            return num;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return -1;  // Error
+    }
+
+    public String[] getAppointmentInfo(int appointmentID){
+        String[] failure = new String[10];
+        try {
+            
+            String[] appointmentInfo = new String[3];
+            String sql = "SELECT appointment_date, start_time, comment " +
+                    "FROM Appointment " +
+                    "WHERE appointment_id = ? ";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, appointmentID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            
+            while(rs.next()){
+                appointmentInfo[0] = rs.getString(1);
+                appointmentInfo[1] = rs.getString(2);
+                appointmentInfo[2] = rs.getString(3);
+            }
+
+            return appointmentInfo;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        return failure;
+    }
+
+    public void updateAppointmentDate(String oldDate, String newDate, int appointment_id){
+        try {
+            String sql = "UPDATE Appointment  " + 
+                        "SET  " + 
+                            "appointment_date = ? " + 
+                        "WHERE appointment_date = ? " + 
+                            "AND appointment_id = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, oldDate);
+            stmt.setString(2, newDate);
+            stmt.setInt(3, appointment_id);
+
+            stmt.executeUpdate();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
 }
