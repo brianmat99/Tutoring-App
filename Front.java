@@ -123,15 +123,28 @@ public class Front {
             tutorChosen = input.nextInt() - 1;
 
             int numOfReviews = b.getNumOfTutorReviews(tutorNames[tutorChosen][0]);
-            String[] reviews = new String[numOfReviews];
+            String[][] reviews = new String[numOfReviews][2];
             reviews = b.getTutorReviews(tutorNames[tutorChosen][0]);
+            double avgRating = 0;
+            for(int i = 0; i < numOfReviews; i++) {
+                avgRating += Double.parseDouble(reviews[i][1]);
+            }
+            avgRating /= numOfReviews;
 
             System.out.println("\nTutor: " + tutorNames[tutorChosen][0]);
             System.out.println("Reviews: ");
             for(int i = 0; i < numOfReviews; i++) {
-                System.out.println((i + 1) + ". " + reviews[i]);
+                System.out.println((i + 1) + ". Rating: " + reviews[i][1] + " - " + reviews[i][0]);
             }
-            System.out.println("Availability: ...");
+            System.out.println("Average rating: " + String.format("%.2f", avgRating));
+
+            int numOfAvail = b.getTutorNumAvail(tutorNames[tutorChosen][0]);
+            String[][] tutorAvail = new String[numOfAvail][3];
+            tutorAvail = b.getTutorAvail(tutorNames[tutorChosen][0]);
+            System.out.println("Availability: ");
+            for(int i = 0; i < numOfAvail; i++) {
+                System.out.println(tutorNames[tutorChosen][0] + " " + tutorAvail[i][0] + " " +tutorAvail[i][1] + " to " + tutorAvail[i][2]);
+            }
             
             System.out.println("\nConfirm choice (1/0): ");
             confirm = input.nextInt();

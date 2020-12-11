@@ -471,23 +471,60 @@ public class Back {
 
         return failure; // If return this then function failed
     }
-/*
-    public String[] getTutorAvail(int tutorID, ) {
-        String[] failure = new String[1234];
+
+    public int getTutorNumAvail(String t) {
         try {
-            String sql = ""
+            String sql = "select count(*) as c " +
+                "from Availability, Tutor " +
+                "where a_tutor_id = tutor_id " +
+                    "and name = ? ";
             PreparedStatement stmt = c.prepareStatement(sql);
-            stmt.setString(1, co);
+            stmt.setString(1, t);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int num = rs.getInt(1);
+
+            return num;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return -1;  // Failure
+    }
+    
+    public String[][] getTutorAvail(String t) {
+        String[][] failure = new String[1234][1];
+        try {
+            int num = getTutorNumAvail(t);
+            String[][] tutorAvail = new String[num][3];
+            String sql = "select day_of_week, start_time, end_time " +
+                "from Availability, Tutor " +
+                "where a_tutor_id = tutor_id " +
+                    "and name = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, t);
 
             ResultSet rs = stmt.executeQuery();
 
             int i = 0;
             while(rs.next()) {
-                
+                tutorAvail[i][0] = rs.getString(1);
+                tutorAvail[i][1] = rs.getString(2);
+                tutorAvail[i][2] = rs.getString(3);
                 i++;
+            }
+
+            return tutorAvail;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
+
+        return failure; // Failure
     }
-*/
+
     public int getNumOfTutorReviews(String t) {
         try {
             String sql = "select count(*) " +
@@ -511,12 +548,12 @@ public class Back {
         return -1;  // Error
     }
 
-    public String[] getTutorReviews(String t) {
-        String[] failure = new String[1234];
+    public String[][] getTutorReviews(String t) {
+        String[][] failure = new String[1234][1];
         try {
             int numOfReviews = getNumOfTutorReviews(t);
-            String[] reviews = new String[numOfReviews];
-            String sql = "select comment " +
+            String[][] reviews = new String[numOfReviews][2];
+            String sql = "select comment, rating " +
                 "from Reviews, Tutor " +
                 "where r_tutor_id = tutor_id " +
                     "and name = ? ";
@@ -527,7 +564,8 @@ public class Back {
 
             int i = 0;
             while(rs.next()) {
-                reviews[i] = rs.getString(1);
+                reviews[i][0] = rs.getString(1);
+                reviews[i][1] = rs.getString(2);
                 i++;
             }
 
