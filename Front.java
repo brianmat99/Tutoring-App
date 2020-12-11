@@ -16,7 +16,7 @@ public class Front {
 
         //TODO: verify if the name exists in the database
 
-        System.out.println("Welcome " + student + "...");
+        System.out.println("Welcome " + student + "...💩");
         
         // if student
         if (res == 0){
