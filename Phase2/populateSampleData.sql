@@ -11,19 +11,24 @@ VALUES
     ('Lionel Messi', 'lmessi10@gmail.com', '9258532934', 'Computer Science tutor with 5 years of experience.'),
     ('Cristiano Ronaldo','cr7@gmail.com','4156782345','I tutor in mathematics and physics. Always eager to help!'),
     ('Tony Stark', 'tony@starkindustries.com', '5102452452', 'You know who I am.'),
-    ('Steve Rodgers', 'steveshield@hotmail.com', '4879512364', 'Happy to help in any way I can.');
+    ('Steve Rodgers', 'steveshield@hotmail.com', '4879512364', 'Happy to help in any way I can.'),
+    ('Thor Odinson', 'thor@godmail.com', '1231231234', 'Want to hear about how I killed Thanos?'),
+    ('Natasha Romanoff', 'nat@hotmail.com', '4515786512', 'I know a lot about history.'),
+    ('Florin Rusu', 'frusu@ucmerced.edu', '1235638625', 'Computer science professor at UC Merced.');
 
 INSERT INTO CoursesSupported (cs_tutor_id, course_name, acronym)
 VALUES 
     (1, 'Computer Architecture', 'CSE 140'),
-    (1, 'Intro to Programming', 'CSE 150'),
+    (1, 'Operating System', 'CSE 150'),
     (1, 'Vector Calculus', 'MATH 023'),
     (1, 'Database Management', 'CSE 111'),
     (1, 'Software Engineering', 'CSE 120'),
     (2, 'Vector Calculus', 'MATH 023'),
     (2, 'Linear Algebra', 'MATH 024'),
-    (2, 'Intro to Programming', 'CSE 150'),
+    (2, 'Operating Systems', 'CSE 150'),
     (2, 'Intro to Physics', 'PHYS 008'),
+    (3, 'Advanced Programming', 'CSE 024'),
+    (3, 'Drawing I', 'GASP 010'),
     (3, 'Molecular Electronic Structure', 'CHEM 225'),
     (3, 'Cognitive Science of Emotions', 'COGS 278'),
     (3, 'Intro to Computer Vision', 'CSE 185'),
@@ -32,7 +37,20 @@ VALUES
     (4, 'Advanced Shakespeare', 'ENG 151'),
     (4, 'Design I', 'GASP 013A'),
     (4, 'Drawing I', 'GASP 010'),
-    (4, 'Drawing II', 'GASP 110');
+    (4, 'Drawing II', 'GASP 110'),
+    (5, 'Human Origins', 'ANTH 160'),
+    (5, 'Religion and Healing', 'ANTH 122'),
+    (5, 'Nutrition', 'BIO 060'),
+    (6, 'History of Things', 'HIST 051'),
+    (6, 'Britain, 1500-1750', 'HIST 179'),
+    (6, 'Intro to Physics', 'PHYS 008'),
+    (6, 'Database Management', 'CSE 111'),
+    (6, 'Operating Systems', 'CSE 150'),
+    (6, 'Advanced Programming', 'CSE 024')
+    (7, 'Intro Computer Applications', 'CSE 005'),
+    (7, 'Intro Computer Applications', 'CSE 005');
+    
+
 
 INSERT INTO Reviews (r_tutor_id, r_student_id, rating, comment)
 VALUES 
@@ -58,7 +76,14 @@ VALUES
     (2, 2, 'Fri', '12:30:00', '18:30:00'),
     (1, 3, 'Mon', '08:00:00', '10:00:00'),
     (1, 3, 'Fri', '08:00:00', '10:00:00'),
-    (2, 4, 'Tue', '10:00:00', '12:30:00');
+    (2, 4, 'Tue', '10:00:00', '12:30:00'),
+    (2, 4, 'Sat', '06:00:00', '12:00:00'),
+    (1, 5, 'Mon', '13:00:00', '15:00:00'),
+    (1, 5, 'Fri', '13:00:00', '15:00:00'),
+    (2, 6, 'Wed', '06:00:00', '09:30:00'),
+    (2, 6, 'Sat', '06:00:00', '10:00:00'),
+    (2, 6, 'Mon', '06:00:00', '09:30:00'),
+
 
 --Insert availability and use delete if any tutor wants to get rid of any
 

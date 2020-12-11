@@ -439,8 +439,17 @@ public class Front {
         int sID = b.getStudentIDFromEmail(studentEmail);
         int tID = b.getTutorIDFromName(tutorNames[tutorChosen][0]);
         String appt = year + "-" + month + "-" + day;
-        String sTime = String.valueOf(userTimeSHour) + ":" + String.valueOf(userTimeSMin) + ":00";
-        String eTime = String.valueOf(userTimeSHour + 1) + ":" + String.valueOf(userTimeSMin) + ":00";
+        String sTime;
+        String eTime;
+
+        if(userTimeSMin < 10) {
+            sTime = String.valueOf(userTimeSHour) + ":0" + String.valueOf(userTimeSMin) + ":00";
+            eTime = String.valueOf(userTimeSHour + 1) + ":0" + String.valueOf(userTimeSMin) + ":00";
+        }
+        else {
+            sTime = String.valueOf(userTimeSHour) + ":" + String.valueOf(userTimeSMin) + ":00";
+            eTime = String.valueOf(userTimeSHour + 1) + ":" + String.valueOf(userTimeSMin) + ":00";
+        }
 
         b.insertAppointment(sID, tID, appt, sTime, eTime, userComment);
         System.out.println("Appointment created! ");
