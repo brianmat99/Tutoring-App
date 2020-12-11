@@ -175,6 +175,8 @@ public class Back {
 
                 ResultSet rs = stmt.executeQuery();
                 int num = rs.getInt(1);
+
+                stmt.close();
                 
                 return num;
             }
@@ -352,6 +354,7 @@ public class Back {
                     i++;
                 }
                 
+                stmt.close();
                 return tutors;
             }
             
@@ -373,6 +376,7 @@ public class Back {
 
             int count = rs.getInt("c");
 
+            stmt.close();
             return count;
 
         } catch(Exception e) {
@@ -401,6 +405,7 @@ public class Back {
                 i++;
             }
 
+            stmt.close();
             return tutors;
 
         } catch(Exception e) {
@@ -422,6 +427,7 @@ public class Back {
 
             int count = rs.getInt("c");
 
+            stmt.close();
             return count;
 
         } catch(Exception e) {
@@ -449,7 +455,7 @@ public class Back {
                 courses[i] = rs.getString(1);
                 i++;
             }
-
+            stmt.close();
             return courses;
 
         } catch(Exception e) {
@@ -472,6 +478,7 @@ public class Back {
 
             int num = rs.getInt(1);
 
+            stmt.close();
             return num;
 
         } catch(Exception e) {
@@ -501,6 +508,7 @@ public class Back {
                 i++;
             }
 
+            stmt.close();
             return reviews;
 
         } catch(Exception e) {
@@ -534,7 +542,7 @@ public class Back {
                 }
                 row++;
             }
-
+            stmt.close();
             return appointments;
 
         } catch(Exception e) {
@@ -556,7 +564,8 @@ public class Back {
             ResultSet rs = stmt.executeQuery();
 
             int num = rs.getInt(1);
-
+            stmt.close();
+            rs.close();
             return num;
 
         } catch(Exception e) {
@@ -587,6 +596,8 @@ public class Back {
                 appointmentInfo[2] = rs.getString(3);
             }
 
+            stmt.close();
+            rs.close();
             return appointmentInfo;
 
         } catch(Exception e) {
@@ -598,16 +609,18 @@ public class Back {
     public void updateAppointmentDate(String oldDate, String newDate, int appointment_id){
         try {
             String sql = "UPDATE Appointment  " + 
-                        "SET  " + 
-                            "appointment_date = ? " + 
-                        "WHERE appointment_date = ? " + 
-                            "AND appointment_id = ? ";
+                        " SET appointment_date = ? " +
+                        " WHERE appointment_date = ? " +
+                            " AND appointment_id = ? ";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setString(1, oldDate);
             stmt.setString(2, newDate);
             stmt.setInt(3, appointment_id);
 
-            stmt.executeUpdate();
+            stmt.execute();
+            c.commit();
+
+            stmt.close();
 
         } catch(Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
