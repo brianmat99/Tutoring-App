@@ -1,3 +1,7 @@
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 import javax.lang.model.util.ElementScanner6;
@@ -187,6 +191,12 @@ public class Front {
         int numOfTutors = b.getNumOfTutorsByCourse(courseNames[courseChosen], daysAvailArr);
         String[][] tutorNames = new String[numOfTutors][2];
         tutorNames = b.getTutorsByCourse(courseNames[courseChosen], daysAvailArr);
+        // Variable declarations from while loop
+        int numOfReviews;
+        String[][] reviews;
+        double avgRating;
+        int numOfAvail;
+        String[][] tutorAvail;
         
         while(true) {   // To allow user to look through all tutor reviews, availability, etc 
             int confirm = 2;
@@ -197,10 +207,10 @@ public class Front {
         
             tutorChosen = input.nextInt() - 1;
 
-            int numOfReviews = b.getNumOfTutorReviews(tutorNames[tutorChosen][0]);
-            String[][] reviews = new String[numOfReviews][2];
+            numOfReviews = b.getNumOfTutorReviews(tutorNames[tutorChosen][0]);
+            reviews = new String[numOfReviews][2];
             reviews = b.getTutorReviews(tutorNames[tutorChosen][0]);
-            double avgRating = 0;
+            avgRating = 0;
             for(int i = 0; i < numOfReviews; i++) {
                 avgRating += Double.parseDouble(reviews[i][1]);
             }
@@ -213,8 +223,8 @@ public class Front {
             }
             System.out.println("Average rating: " + String.format("%.2f", avgRating));
 
-            int numOfAvail = b.getTutorNumAvail(tutorNames[tutorChosen][0]);
-            String[][] tutorAvail = new String[numOfAvail][3];
+            numOfAvail = b.getTutorNumAvail(tutorNames[tutorChosen][0]);
+            tutorAvail = new String[numOfAvail][3];
             tutorAvail = b.getTutorAvail(tutorNames[tutorChosen][0]);
             System.out.println("Availability: ");
             for(int i = 0; i < numOfAvail; i++) {
@@ -232,8 +242,18 @@ public class Front {
             }
         }
         
-        System.out.println("Please enter the date requested for this session: (e.x: 01/27/2020)");
+        System.out.println("Please enter the date requested for this session: (e.x: 1/2/2020)(M/D/Y)");
         String date = input.next();
+        String[] dateParsed = date.split("/");
+        int month = Integer.parseInt(dateParsed[0]);
+        int day = Integer.parseInt(dateParsed[1]);
+        int year = Integer.parseInt(dateParsed[2]);
+        System.out.println("(m/d/y): (" + month + "/" + day + "/" + year + ")");
+        Calendar myCalendar = new GregorianCalendar(year, month, day);
+        Date myDate = myCalendar.getTime();
+        SimpleDateFormat simp = new SimpleDateFormat("E");
+        System.out.println(simp.format(myDate));
+
         System.out.println("Please enter the time: (e.x: 4:30pm)");
         String time = input.next();
 
