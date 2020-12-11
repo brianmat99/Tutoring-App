@@ -352,7 +352,7 @@ public class Front {
         apptInfo = b.getStudentAppts(sID);
 
         if(numOfAppts == 0) {
-            System.out.println("You have no active appointments.\n");
+            System.out.println("You have no active appointments.");
         }
 
         System.out.println();
