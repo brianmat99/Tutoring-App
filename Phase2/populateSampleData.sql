@@ -48,7 +48,14 @@ VALUES
     (6, 'Operating Systems', 'CSE 150'),
     (6, 'Advanced Programming', 'CSE 024')
     (7, 'Intro Computer Applications', 'CSE 005'),
-    (7, 'Intro Computer Applications', 'CSE 005');
+    (7, 'Discrete Mathematics', 'CSE 015'),
+    (7, 'Introduction to Computing I', 'CSE 020'),
+    (7, 'Introduction to Computing II', 'CSE 021'),
+    (7, 'Intro to Programming', 'CSE 022'),
+    (7, 'Advanced Programming', 'CSE 024'),
+    (7, 'Data Structures', 'CSE 030'),
+    (7, 'Computer Organization', 'CSE 031');
+    
     
 
 
