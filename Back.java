@@ -46,7 +46,7 @@ public class Back {
     public int getNumOfTutorsByCourse(String co, String[] d) {
         try {
             if(d.length == 1) {
-                String sql = "select count(distinct tutor_id) " +
+                String sql = "select distinct count(tutor_id) " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -62,7 +62,7 @@ public class Back {
                 return num;
             }
             if(d.length == 2) {
-                String sql = "select count(distinct tutor_id) " +
+                String sql = "select distinct count(tutor_id) " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -79,7 +79,7 @@ public class Back {
                 return num;
             }
             if(d.length == 3) {
-                String sql = "select count(distinct tutor_id) " +
+                String sql = "select distinct count(tutor_id) " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -97,7 +97,7 @@ public class Back {
                 return num;
             }
             if(d.length == 4) {
-                String sql = "select count(distinct tutor_id) " +
+                String sql = "select distinct count(tutor_id) " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -116,7 +116,7 @@ public class Back {
                 return num;
             }
             if(d.length == 5) {
-                String sql = "select count(distinct tutor_id) " +
+                String sql = "select distinct count(tutor_id) " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -136,7 +136,7 @@ public class Back {
                 return num;
             }
             if(d.length == 6) {
-                String sql = "select count(distinct tutor_id) " +
+                String sql = "select distinct count(tutor_id) " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -157,7 +157,7 @@ public class Back {
                 return num;
             }
             if(d.length == 7) {
-                String sql = "select count(distinct tutor_id) " +
+                String sql = "select distinct count(tutor_id) " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -189,14 +189,14 @@ public class Back {
     }
     
     // returns tutors who support input course and days
-    public String[] getTutorsByCourse(String co, String[] d) {
-        String[] failure = new String[123];
+    public String[][] getTutorsByCourse(String co, String[] d) {
+        String[][] failure = new String[123][2];
         try {
             int num = getNumOfTutorsByCourse(co, d);
-            String[] tutors = new String[num];
+            String[][] tutors = new String[num][2];
 
             if(d.length == 1) {
-                String sql = "select distinct Tutor.name " +
+                String sql = "select distinct Tutor.name, day_of_week " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -209,14 +209,15 @@ public class Back {
                 ResultSet rs = stmt.executeQuery();
                 int i = 0;
                 while(rs.next()) {
-                    tutors[i] = rs.getString(1);
+                    tutors[i][0] = rs.getString(1);
+                    tutors[i][1] = rs.getString(2);
                     i++;
                 }
                 
                 return tutors;
             }
             if(d.length == 2) {
-                String sql = "select distinct Tutor.name " +
+                String sql = "select distinct Tutor.name, day_of_week " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -230,14 +231,15 @@ public class Back {
                 ResultSet rs = stmt.executeQuery();
                 int i = 0;
                 while(rs.next()) {
-                    tutors[i] = rs.getString(1);
+                    tutors[i][0] = rs.getString(1);
+                    tutors[i][1] = rs.getString(2);
                     i++;
                 }
                 
                 return tutors;
             }
             if(d.length == 3) {
-                String sql = "select distinct Tutor.name " +
+                String sql = "select distinct Tutor.name, day_of_week " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -252,14 +254,15 @@ public class Back {
                 ResultSet rs = stmt.executeQuery();
                 int i = 0;
                 while(rs.next()) {
-                    tutors[i] = rs.getString(1);
+                    tutors[i][0] = rs.getString(1);
+                    tutors[i][1] = rs.getString(2);
                     i++;
                 }
                 
                 return tutors;
             }
             if(d.length == 4) {
-                String sql = "select distinct Tutor.name " +
+                String sql = "select distinct Tutor.name, day_of_week " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -275,14 +278,15 @@ public class Back {
                 ResultSet rs = stmt.executeQuery();
                 int i = 0;
                 while(rs.next()) {
-                    tutors[i] = rs.getString(1);
+                    tutors[i][0] = rs.getString(1);
+                    tutors[i][1] = rs.getString(2);
                     i++;
                 }
                 
                 return tutors;
             }
             if(d.length == 5) {
-                String sql = "select distinct Tutor.name " +
+                String sql = "select distinct Tutor.name, day_of_week " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -299,14 +303,15 @@ public class Back {
                 ResultSet rs = stmt.executeQuery();
                 int i = 0;
                 while(rs.next()) {
-                    tutors[i] = rs.getString(1);
+                    tutors[i][0] = rs.getString(1);
+                    tutors[i][1] = rs.getString(2);
                     i++;
                 }
                 
                 return tutors;
             }
             if(d.length == 6) {
-                String sql = "select distinct Tutor.name " +
+                String sql = "select distinct Tutor.name, day_of_week " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -324,14 +329,15 @@ public class Back {
                 ResultSet rs = stmt.executeQuery();
                 int i = 0;
                 while(rs.next()) {
-                    tutors[i] = rs.getString(1);
+                    tutors[i][0] = rs.getString(1);
+                    tutors[i][1] = rs.getString(2);
                     i++;
                 }
                 
                 return tutors;
             }
             if(d.length == 7) {
-                String sql = "select distinct Tutor.name " +
+                String sql = "select distinct Tutor.name, day_of_week " +
                     "from Tutor, CoursesSupported, Availability " +
                     "where tutor_id = cs_tutor_id " +
                         "and tutor_id = a_tutor_id " +
@@ -350,7 +356,8 @@ public class Back {
                 ResultSet rs = stmt.executeQuery();
                 int i = 0;
                 while(rs.next()) {
-                    tutors[i] = rs.getString(1);
+                    tutors[i][0] = rs.getString(1);
+                    tutors[i][1] = rs.getString(2);
                     i++;
                 }
                 
@@ -464,7 +471,23 @@ public class Back {
 
         return failure; // If return this then function failed
     }
+/*
+    public String[] getTutorAvail(int tutorID, ) {
+        String[] failure = new String[1234];
+        try {
+            String sql = ""
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, co);
 
+            ResultSet rs = stmt.executeQuery();
+
+            int i = 0;
+            while(rs.next()) {
+                
+                i++;
+        }
+    }
+*/
     public int getNumOfTutorReviews(String t) {
         try {
             String sql = "select count(*) " +

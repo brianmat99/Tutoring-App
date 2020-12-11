@@ -110,24 +110,23 @@ public class Front {
         String[] daysAvailArr = daysAvailable.split(",");
 
         int numOfTutors = b.getNumOfTutorsByCourse(courseNames[courseChosen], daysAvailArr);
-        String[] tutorNames = new String[numOfTutors];
+        String[][] tutorNames = new String[numOfTutors][2];
         tutorNames = b.getTutorsByCourse(courseNames[courseChosen], daysAvailArr);
         
         while(true) {   // To allow user to look through all tutor reviews, availability, etc 
             int confirm = 2;
             System.out.println("\nPlease select a tutor: ");
             for (int i = 0; i < numOfTutors; i++) {
-                System.out.println((i + 1) + ". " + tutorNames[i]);
+                System.out.println((i + 1) + ". " + tutorNames[i][0] + " on " + tutorNames[i][1]);
             }
         
             tutorChosen = input.nextInt() - 1;
 
-            int numOfReviews = b.getNumOfTutorReviews(tutorNames[tutorChosen]);
+            int numOfReviews = b.getNumOfTutorReviews(tutorNames[tutorChosen][0]);
             String[] reviews = new String[numOfReviews];
-            reviews = b.getTutorReviews(tutorNames[tutorChosen]);
-            System.out.println("NUM: " + numOfReviews + ", " + tutorChosen);
+            reviews = b.getTutorReviews(tutorNames[tutorChosen][0]);
 
-            System.out.println("\nTutor: " + tutorNames[tutorChosen]);
+            System.out.println("\nTutor: " + tutorNames[tutorChosen][0]);
             System.out.println("Reviews: ");
             for(int i = 0; i < numOfReviews; i++) {
                 System.out.println((i + 1) + ". " + reviews[i]);
