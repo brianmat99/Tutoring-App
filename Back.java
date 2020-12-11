@@ -818,4 +818,66 @@ public class Back {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
+
+    public int getStudentIDFromEmail(String se) {
+        try {
+            String sql = "select student_id " +
+                "from Student " +
+                "where email = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, se);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int studentID = rs.getInt(1);
+
+            return studentID;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return -1;  // Error
+    }
+
+    public int getTutorIDFromName(String tn) {
+        try {
+            String sql = "select tutor_id " +
+                "from Tutor " +
+                "where name = ? ";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, tn);
+
+            ResultSet rs = stmt.executeQuery();
+
+            int tutorID = rs.getInt(1);
+
+            return tutorID;
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return -1;  // Error
+    }
+
+    public void insertAppointment(int sID, int tID, String appt, String sTime, String eTime, String comment) {
+        try {
+            String sql = "insert into Appointment (app_student_id, app_tutor_id, appointment_date, start_time, end_time, description, accepted) " +
+                "values( ?, ?, ?, ?, ?, ?, 0)";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, sID);
+            stmt.setInt(2, tID);
+            stmt.setString(3, appt);
+            stmt.setString(4, sTime);
+            stmt.setString(5, eTime);
+            stmt.setString(6, comment);
+
+            stmt.executeUpdate();
+            c.commit();
+
+        } catch(Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
 }

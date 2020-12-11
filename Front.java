@@ -183,7 +183,7 @@ public class Front {
         }
         courseChosen = input.nextInt() - 1;
 
-        System.out.println("\nWhat days are you available: Su, M, Tu, W, Th, F, Sa (in comma separated list i.e. M,Tu,F,Sa)");
+        System.out.println("\nWhat days are you available: Sun, Mon, Tue, Wed, Thu, Fri, Sat (in comma separated list i.e. Mon,Tue,Fri,Sat)");
         daysAvailable = input.next();
 
         String[] daysAvailArr = daysAvailable.split(",");
@@ -241,21 +241,102 @@ public class Front {
                 // continue
             }
         }
+        // Variable declarations from while loop below 
+        String date;
+        String[] dateParsed;
+        int month;
+        int day;
+        int year;
+        Calendar myCalendar;
+        Date myDate;
+        SimpleDateFormat simp;
+        String dayUserEntered;
         
-        System.out.println("Please enter the date requested for this session: (e.x: 1/2/2020)(M/D/Y)");
-        String date = input.next();
-        String[] dateParsed = date.split("/");
-        int month = Integer.parseInt(dateParsed[0]);
-        int day = Integer.parseInt(dateParsed[1]);
-        int year = Integer.parseInt(dateParsed[2]);
-        System.out.println("(m/d/y): (" + month + "/" + day + "/" + year + ")");
-        Calendar myCalendar = new GregorianCalendar(year, month, day);
-        Date myDate = myCalendar.getTime();
-        SimpleDateFormat simp = new SimpleDateFormat("E");
-        System.out.println(simp.format(myDate));
+        while(true) {
+            int validDateEntered = 0;   // Starts false
 
-        System.out.println("Please enter the time: (e.x: 4:30pm)");
-        String time = input.next();
+            System.out.println("Please enter the date requested for this session: (e.x: 1/2/2020)(M/D/Y)");
+            date = input.next();
+            dateParsed = date.split("/");
+            month = Integer.parseInt(dateParsed[0]);
+            day = Integer.parseInt(dateParsed[1]);
+            year = Integer.parseInt(dateParsed[2]);
+            System.out.println("(m/d/y): (" + month + "/" + day + "/" + year + ")");
+            myCalendar = new GregorianCalendar(year, (month - 1), day);
+            myDate = myCalendar.getTime();
+            simp = new SimpleDateFormat("E");
+            dayUserEntered = simp.format(myDate);
+            System.out.println(dayUserEntered);
+
+            for(int i = 0; i < numOfAvail; i++) {
+                if(tutorAvail[i][0].equals(dayUserEntered)) {
+                    validDateEntered = 1;
+                }
+            }
+
+            if(validDateEntered == 1) {
+                break;
+            }
+            System.out.println("Day of date entered does not match tutor's availability. Please enter a new date...");;
+        }
+        
+        // Variable declarations from while loop below 
+        String userTime;
+        String[] userTimeParsed;
+        int userTimeSHour;
+        int userTimeSMin;
+        String[] tutorAvailSParsed;
+        String[] tutorAvailFParsed;
+        int tutorAvailSHour;
+        int tutorAvailFHour;
+        int tutorAvailSMin;
+        int tutorAvailFMin;
+
+        while(true) {
+            int validTime= 0;   // Starts false
+            System.out.println("Please enter the time: (e.x: 04:30, 24h format)");
+            userTime = input.next();
+
+            userTimeParsed = userTime.split(":");
+            userTimeSHour = Integer.parseInt(userTimeParsed[0]);
+            userTimeSMin = Integer.parseInt(userTimeParsed[1]);
+            
+            for(int i = 0 ; i < numOfAvail; i++) {
+                tutorAvailSParsed = tutorAvail[i][1].split(":");
+                tutorAvailFParsed = tutorAvail[i][2].split(":");
+                tutorAvailSHour = Integer.parseInt(tutorAvailSParsed[0]);
+                tutorAvailFHour = Integer.parseInt(tutorAvailFParsed[0]);
+                tutorAvailSMin = Integer.parseInt(tutorAvailSParsed[1]);
+                tutorAvailFMin = Integer.parseInt(tutorAvailFParsed[1]);
+
+                if(tutorAvail[i][0].equals(dayUserEntered)) {
+                    if((userTimeSHour < tutorAvailFHour) && (userTimeSHour >= tutorAvailSHour)) {
+                        validTime = 1;
+                    }
+                }
+            }
+
+            if(validTime == 1) {
+                break;
+            }
+            else {
+                System.out.println("Time selected is not within tutor's availability. Please try again... ");
+            }
+        }
+
+        System.out.println("Describe help required: ");
+        String userComment = input.nextLine();
+
+        int sID = b.getStudentIDFromEmail(studentEmail);
+        int tID = b.getTutorIDFromName(tutorNames[tutorChosen][0]);
+        String appt = year + "-" + month + "-" + day;
+        String sTime = String.valueOf(userTimeSHour) + ":" + String.valueOf(userTimeSMin) + ":00";
+        String eTime = String.valueOf(userTimeSHour + 1) + ":" + String.valueOf(userTimeSMin) + ":00";
+
+        b.insertAppointment(sID, tID, appt, sTime, eTime, userComment);
+        System.out.println("Appointment created! ");
+        System.out.println(dayUserEntered + " " + appt + " " + sTime + "-" + eTime + "\n" + "with " + tutorNames[tutorChosen][0]);
+
 
         //Insert into appointments 
         
