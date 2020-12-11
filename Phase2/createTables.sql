@@ -49,7 +49,8 @@ create table Appointment (
     appointment_date text not null,
     -- description varchar(200),
     start_time time not null,
-    end_time time not null    -- Might not need to this because of description or vice versa
+    end_time time not null,
+    description varchar(500)   -- Might not need to this because of description or vice versa
 );
     
 create table Student (

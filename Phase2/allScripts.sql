@@ -146,7 +146,7 @@ VALUES
 
 --Insert availability and use delete if any tutor wants to get rid of any
 
-INSERT INTO Appointment (app_student_id, app_tutor_id, appointment_date, start_time, end_time, comment)
+INSERT INTO Appointment (app_student_id, app_tutor_id, appointment_date, start_time, end_time, description)
 VALUES 
     (2, 2, '2020-09-23', '12:30:00', '13:30:00', 'Need Help with comp sci.'),
     (1, 2, '2021-02-15', '18:30:00', '19:30:00', 'Need help for final.'),
